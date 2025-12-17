@@ -5,7 +5,7 @@ const mockProducts = [
     id: 1,
     name: "Cotton Candy Lollipop Bag",
     price: 199,
-    image: "/lollipop1.png",
+    image: "/",
   },
   {
     id: 2,
