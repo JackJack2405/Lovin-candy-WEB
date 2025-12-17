@@ -23,24 +23,45 @@ export default function Navbar() {
         {/* CENTER : Menu */}
         <ul className="hidden md:flex gap-10 font-['Jua'] text-lg">
         <li>
-          <Link to="/">Home</Link>
+            <Link to="/" className="hover:opacity-70">
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/customize" className="hover:opacity-70">
+              Customize
+            </Link>
         </li>
         <li>
-          <Link to="/customize">Customize</Link>
+            <Link to="/product" className="hover:opacity-70">
+              Product
+            </Link>
         </li>
-        {/* <li>
-          <Link to="/product">Product</Link>
-        </li>
-        <li>
-          <Link to="/shoppingcart"><BsCart4 /></Link>
-        </li>
-        <li>
-          <Link to="/signin">Sign in</Link>
-        </li>
-        <li>
-          <Link to="/register">Register</Link>
-        </li> */}
       </ul>
+
+        {/* RIGHT : Cart + Sign in/Register */}
+        <div className="flex items-center gap-4">
+
+          {/* Cart */}
+          <Link
+            to="/shoppingcart"
+            className="text-xl hover:scale-110 transition"
+            aria-label="Shopping Cart"
+          >
+            🛒
+            {/* <BsCart4 /> */}
+          </Link>
+
+          {/* Sign in | Register (หน้าเดียวกัน) */}
+          <Link
+            to="/auth"
+            className="bg-white px-4 py-1 rounded-full text-sm shadow hover:bg-gray-100 transition"
+          >
+            Sign in | Register
+          </Link>
+
+        </div>
+      </div>
     </nav>
   )
 }
