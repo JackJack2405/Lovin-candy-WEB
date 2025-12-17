@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-// import { BsCart4 } from "react-icons/bs";
+import { BsCart4 } from "react-icons/bs";
 
 export default function Navbar() {
   return (
@@ -37,6 +37,9 @@ export default function Navbar() {
               Product
             </Link>
           </li>
+          <li>
+            <Link to="/profile" >My Profile</Link>
+          </li>
         </ul>
 
         {/* RIGHT : Cart + Sign in/Register */}
@@ -48,8 +51,7 @@ export default function Navbar() {
             className="text-xl hover:scale-110 transition"
             aria-label="Shopping Cart"
           >
-            🛒
-            {/* <BsCart4 /> */}
+            <BsCart4 className="text-2xl"/>
           </Link>
 
           {/* Sign in | Register (หน้าเดียวกัน) */}
@@ -59,7 +61,6 @@ export default function Navbar() {
           >
             Sign in | Register
           </Link>
-
         </div>
       </div>
     </nav>

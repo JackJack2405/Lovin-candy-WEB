@@ -1,6 +1,7 @@
 import ProfileElementA from "../components/ProfileElementA";
 import ProfileElementB from "../components/ProfileElementB";
 import '../components/ProfileElement.css';
+import ProfileElementC from "../components/ProfileElementC";
 
 export default function MyProfile() {
   return (
@@ -9,11 +10,26 @@ export default function MyProfile() {
         <div className="profile-a">
           <ProfileElementA />
         </div>
-          {/* <h1 className="flex justify-center mt-100px">My Profile</h1> */}
-        <div className="profile-b">
-          <ProfileElementB />
+
+        <div className="flex flex-col gap-5 w-full">
+          <div className="flex justify-between">
+            <h1 className="text-5xl ml-6 mt-5">My Profile</h1>
+            <button 
+            className="mr-5 mt-5 text-2xl bg-white px-6 py-2 rounded-lg shadow-xl hover:text-white hover:bg-[#FF74B1] transition duration-400 hover:scale-105" 
+            onClick={() => {}}>
+              Edit Profile
+              </button>
+          </div>
+          <div className="profile-b">
+            <ProfileElementB />
+          </div>
+          <div className="profile-c">
+          <ProfileElementC />
+        </div>
+
         </div>
       </div>
+      
     </>
   )
 }
