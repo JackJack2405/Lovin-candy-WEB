@@ -22,7 +22,7 @@ export default function Navbar() {
 
         {/* CENTER : Menu */}
         <ul className="hidden md:flex gap-10 font-['Jua'] text-lg">
-          <li>
+        <li>
             <Link to="/" className="hover:opacity-70">
               Home
             </Link>
@@ -31,13 +31,13 @@ export default function Navbar() {
             <Link to="/customize" className="hover:opacity-70">
               Customize
             </Link>
-          </li>
-          <li>
+        </li>
+        <li>
             <Link to="/product" className="hover:opacity-70">
               Product
             </Link>
-          </li>
-        </ul>
+        </li>
+      </ul>
 
         {/* RIGHT : Cart + Sign in/Register */}
         <div className="flex items-center gap-4">
