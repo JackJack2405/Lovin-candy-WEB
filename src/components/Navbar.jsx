@@ -51,7 +51,6 @@ export default function Navbar() {
             🛒
             {/* <BsCart4 /> */}
           </Link>
-
           {/* Sign in | Register (หน้าเดียวกัน) */}
           <Link
             to="/auth"
