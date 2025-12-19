@@ -33,7 +33,7 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to="/product" className="hover:opacity-70">
+            <Link to="/products" className="hover:opacity-70">
               Product
             </Link>
           </li>
