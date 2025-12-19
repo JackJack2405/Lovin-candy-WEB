@@ -1,12 +1,12 @@
 import {createBrowserRouter, Router, RouterProvider} from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./views/Home";
-import MyProfile from "./views/MyProfile";
+import MyProfile from "./views/MyProfile-pages/MyProfile";
 import Customize from "./views/Customize";
-import MyOrder from "./views/MyOrder";
-import MyFavItems from "./views/MyFavItems";
-import MyAddress from "./views/MyAddress";
-import MyPayment from "./views/MyPayment";
+import MyOrder from "./views/MyProfile-pages/MyOrder";
+import MyFavItems from "./views/MyProfile-pages/MyFavItems";
+import MyAddress from "./views/MyProfile-pages/MyAddress";
+import MyPayment from "./views/MyProfile-pages/MyPayment";
 import Products from "./views/Products";
 import Admin from "./views/Admin";
 

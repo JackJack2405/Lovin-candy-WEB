@@ -1,8 +1,8 @@
-import ProfileElementA from "../components/ProfileElementA";
-import ProfileElementB from "../components/ProfileElementB";
-import '../components/ProfileElement.css';
-import ProfileElementC from "../components/ProfileElementC";
-import ProfileElementD from "../components/ProfileElementD";
+import ProfileElementA from "../../components/MyProfile/ProfileElementA";
+import ProfileElementB from "../../components/MyProfile/ProfileElementB";
+import '../../components/MyProfile/ProfileElement.css';
+import ProfileElementC from "../../components/MyProfile/ProfileElementC";
+import ProfileElementD from "../../components/MyProfile/ProfileElementD";
 
 export default function MyProfile() {
   return (

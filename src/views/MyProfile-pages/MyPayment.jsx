@@ -1,8 +1,8 @@
-import ProfileElementA from "../components/ProfileElementA";
-import ProfileElementC from "../components/ProfileElementC";
-import '../components/ProfileElement.css';
+import ProfileElementA from "../../components/MyProfile/ProfileElementA";
+import ProfileElementC from "../../components/MyProfile/ProfileElementC";
+import '../../components/MyProfile/ProfileElement.css';
 
-export default function MyAddress() {
+export default function MyPayment() {
   return (
     <>
       <div className="my-profile">
@@ -11,7 +11,7 @@ export default function MyAddress() {
         </div>
 
         <div className="flex flex-col gap-5 w-full">
-            <h1 className="text-5xl ml-6 mt-5">My Address</h1>
+            <h1 className="text-5xl ml-6 mt-5">My Payment</h1>
 
           <div className="profile-c">
             <ProfileElementC />
