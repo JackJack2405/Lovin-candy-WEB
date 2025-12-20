@@ -1,5 +1,5 @@
 // import React from "react";
-import { Link } from "react-router-dom";
+import { Router, Route, Switch, Link } from "react-router-dom";
 import { BiUser } from "react-icons/bi";
 import { AiOutlineUnlock } from "react-icons/ai";
 

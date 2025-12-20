@@ -1,3 +1,5 @@
+import { Router, Route, Switch, Link } from "react-router-dom";
+
 const Register = () => {
   return (
     <div>
