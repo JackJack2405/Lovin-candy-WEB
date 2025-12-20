@@ -1,7 +1,16 @@
+import Hero from "../components/Hero";
+import PopularBanner from "../components/PopularBanner";
+import PopularPicks from "../components/PopularPicks";
+import SpecialSets from "../components/SpecialSets";
+
 export default function Home() {
   return (
-    <div className="p-8">
-      <h1 className="text-4xl">Welcome to LovinCandy 🍬</h1>
-    </div>
-  )
+    <>
+      <Hero />
+      <PopularBanner />   {/*← ใต้ Hero */}
+      <PopularPicks />    {/* ← grid สินค้า */}
+      <SpecialSets />     {/* 🎁 เทศกาล */}
+    </>
+  );
 }
+

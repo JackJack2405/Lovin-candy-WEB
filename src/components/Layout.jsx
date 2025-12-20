@@ -1,14 +1,16 @@
-import {Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 
 export default function Layout () {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <div>
+      <main className="grow">
         <Outlet />
-      </div>
+      </main>
+      <Footer />
     </div>
-  )
-};
+  );
+}

@@ -1,11 +1,9 @@
-import Navbar from "../components/NavBar";
+import Navbar from "../components/Navbar";
 
-export default function View () {
-    return (
-        <div className="Home">
-            <Navbar />
-
-        </div>
-    )
-
+export default function View() {
+  return (
+    <div className="Home">
+      <Navbar />
+    </div>
+  );
 }
