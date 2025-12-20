@@ -3,11 +3,12 @@
 :root {
   --font-patrick-hand: 'Patrick Hand', cursive;
   --font-jua: 'Jua', sans-serif;
+  background: #FAF3F3;
 }
-
 h1 {
   font-family: var(--font-jua);
 }
+<<<<<<< HEAD
 
 
 button {
@@ -46,3 +47,8 @@ body {
   font-family: var(--font-patrick-hand);
 }
 
+=======
+body {
+  font-family: var(--font-patrick-hand);
+}
+>>>>>>> upstream/main
