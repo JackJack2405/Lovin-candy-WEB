@@ -1,25 +1,19 @@
 import { Link } from "react-router-dom";
 import { BsCart4 } from "react-icons/bs";
 
-
 export default function Navbar() {
   return (
     <nav className="bg-[#A6EAFF] shadow-sm">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-
         {/* LEFT : Logo */}
-        <Link
-          to="/"
-          className="flex items-center gap-2 font-['Jua'] text-xl"
-        >
+        <Link to="/" className="flex items-center gap-2 font-['Jua'] text-xl">
           <img
-          src="/logo.png"
-          alt="LovinCandy logo"
-          className="h-10 w-auto object-contain md:h-14"
+            src="/logo.png"
+            alt="LovinCandy logo"
+            className="h-10 w-auto object-contain md:h-14"
           />
-        <span>LovinCandy</span>
+          <span>LovinCandy</span>
         </Link>
-
 
         {/* CENTER : Menu */}
         <ul className="hidden md:flex gap-10 font-['Jua'] text-lg">
@@ -39,28 +33,27 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to="/profile" >My Profile</Link>
+            <Link to="/profile">My Profile</Link>
           </li>
           <li>
-            <Link to="/admin" >Admin</Link>
+            <Link to="/admin">Admin</Link>
           </li>
         </ul>
 
         {/* RIGHT : Cart + Sign in/Register */}
         <div className="flex items-center gap-4">
-
           {/* Cart */}
           <Link
             to="/shoppingcart"
             className="text-xl hover:scale-110 transition"
             aria-label="Shopping Cart"
           >
-            <BsCart4 className="text-2xl"/>
+            <BsCart4 className="text-2xl" />
           </Link>
 
           {/* Sign in | Register (หน้าเดียวกัน) */}
           <Link
-            to="/auth"
+            to="/Login"
             className="bg-white px-4 py-1 rounded-full text-sm shadow hover:bg-gray-100 transition"
           >
             Sign in | Register

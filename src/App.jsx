@@ -10,6 +10,11 @@ import MyPayment from "./views/MyProfile-pages/MyPayment";
 import Products from "./views/Products";
 import Admin from "./views/Admin-pages/Admin";
 import AdminLayout from "./components/Admin/AdminLayout";
+<<<<<<< HEAD
+=======
+import Login from "./components/login";
+import Register from "./components/Register";
+>>>>>>> veersion02
 
 const router = createBrowserRouter([
   {
@@ -30,6 +35,11 @@ const router = createBrowserRouter([
       { path: "/profile/address", element: <MyAddress /> },
       { path: "/profile/payment", element: <MyPayment /> },
       { path: "/admin", element: <Admin /> },
+<<<<<<< HEAD
+=======
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
+>>>>>>> veersion02
     ],
   },
 
