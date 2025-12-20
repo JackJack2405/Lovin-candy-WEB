@@ -36,9 +36,6 @@ export default function ProfileFavItems () {
               </div>
         </li>
         <li className='w-80 flex flex-col  text-start bg-[#FCE7F3] p-5 rounded-xl text-2xl shadow-lg cursor-pointer'>
-              <div className="absolute top-5 right-5 text-[#65DBFF] hover:text-red-500 transition-colors">
-                <IoHeart size={40} />
-              </div>
               
               
               <img 

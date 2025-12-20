@@ -15,14 +15,14 @@
   border-radius: 1.5rem;
   box-shadow: 0 1px 10px rgba(192, 192, 192, 0.5);
   padding: 15px 30px;
-  width: 100%;
-  max-width: 100%;
+  width: 98%;
+  max-width: 1200px;
   min-height: 120px;
-  min-width: 750px;
+  min-width: 600px;
 
   display: flex;
   align-items: center;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .element-c {
@@ -31,11 +31,11 @@
   box-shadow: 0 1px 10px rgba(192, 192, 192, 0.5);
   padding: 15px 70px;
   gap: 80px;
-  width: 100%;
-  max-width: 100%;
+  width: 98%;
+  max-width: 1200px;
   min-height: 120px;
   margin-top: 30px;
-  min-width: 750px;
+  min-width: 600px;
 
   display: flex;
   align-items: center;
@@ -99,7 +99,7 @@
 .rightinfo {
   display: flex;
   align-items: center;
-  gap: 60px;
+  gap: 35px;
 }
 
 .tableitems {
@@ -117,6 +117,7 @@
   align-items: left;
   font-size: 16px;
 }
+
 
 .heada {
   font-size: 1.75rem;

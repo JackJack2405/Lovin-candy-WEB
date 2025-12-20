@@ -20,7 +20,6 @@ export default function Navbar() {
         <span>LovinCandy</span>
         </Link>
 
-
         {/* CENTER : Menu */}
         <ul className="hidden md:flex gap-10 font-['Jua'] text-lg">
           <li>
