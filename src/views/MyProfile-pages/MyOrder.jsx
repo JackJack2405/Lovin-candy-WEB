@@ -1,6 +1,6 @@
 import ProfileElementA from "../../components/MyProfile/ProfileElementA";
-import ProfileElementC from "../../components/MyProfile/ProfileElementC";
 import '../../components/MyProfile/ProfileElement.css';
+import ProfileOrder from "../../components/MyProfile/ProfileOrder";
 
 export default function MyOrder() {
   return (
@@ -14,7 +14,7 @@ export default function MyOrder() {
             <h1 className="text-5xl ml-6 mt-5">My Order</h1>
 
           <div className="profile-c">
-            <ProfileElementC />
+            <ProfileOrder />
           </div>
         </div>
       </div>
