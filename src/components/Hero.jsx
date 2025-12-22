@@ -49,7 +49,7 @@ export default function Hero() {
             "
           >
             <Link
-              to="/rush"
+              to="/specialsets"
               className="
                 bg-[#FF74B1]
                 text-white
