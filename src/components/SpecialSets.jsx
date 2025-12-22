@@ -22,7 +22,7 @@ export default function SpecialSets() {
         <div className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
             <h2 className="text-3xl font-['Jua'] mb-2">
-              🍭🍫🍬🪅Special Sets🪅🍬🍫🍭
+              Special Sets
             </h2>
             <p className="text-gray-600 font-['Patrick_Hand'] text-lg">
               Sweet favorites everyone’s loving right now
@@ -31,7 +31,7 @@ export default function SpecialSets() {
 
           {/* CTA */}
           <Link
-            to="/SpecialSetsPage"
+            to="/SpecialSets"
             className="
               flex items-center gap-2
               text-blue-500 font-medium
@@ -72,27 +72,25 @@ export default function SpecialSets() {
               overflow-x-auto
               scroll-smooth
               pb-4
-              [-ms-overflow-style:none]
-              [scrollbar-width:none]
-              [&::-webkit-scrollbar]:hidden
+              px-12
+              overflow-hidden
+              no-scrollbar
             "
           >
             {specialSets.map((special, index) => (
               <div
                 key={index}
                 className="
-                  min-w-[220px]
-                  sm:min-w-[240px]
+                  w-56
                   bg-white
                   rounded-2xl
                   p-4
                   shadow-sm
                   hover:shadow-md
-                  transition
                   shrink-0
                 "
               >
-                <div className="w-full h-48 rounded-xl mb-4 overflow-hidden bg-[#EAF9FF]">
+                <div className="aspect-square rounded-xl mb-4 overflow-hidden bg-[#EAF9FF]">
                   <img
                     src={special.image}
                     alt={special.name}
@@ -108,15 +106,17 @@ export default function SpecialSets() {
                   {special.desc}
                 </p>
 
+                <Link to="/cart" className="flex items-center gap-2 font-['Jua'] text-xl">
                 <button className="
+                mt-auto
                   w-full py-2 rounded-full
                   bg-[#A6EAFF]
                   font-['Jua'] text-sm
                   hover:bg-[#8fdff7]
-                  transition
-                ">
-                  Add to cart 🛒
+                  transition">
+                  i want this 🛒
                 </button>
+                </Link>
               </div>
             ))}
           </div>
