@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import candies from "../data/candies";
+import mockProducts from "../data/mockProducts";
 
 export default function PopularPicks() {
   const scrollRef = useRef(null);
@@ -22,7 +22,7 @@ export default function PopularPicks() {
         <div className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
             <h2 className="text-3xl font-['Jua'] mb-2">
-              🍬 Popular Picks
+               Popular Picks 
             </h2>
             <p className="text-gray-600 font-['Patrick_Hand'] text-lg">
               Sweet favorites everyone’s loving right now
@@ -52,7 +52,7 @@ export default function PopularPicks() {
             onClick={() => scroll("left")}
             className="
               hidden md:flex
-              absolute -left-4 top-1/2 -translate-y-1/2
+              absolute left-0 top-1/2 -translate-y-1/2
               w-10 h-10
               rounded-full
               bg-white shadow-md
@@ -72,27 +72,26 @@ export default function PopularPicks() {
               overflow-x-auto
               scroll-smooth
               pb-4
-              [-ms-overflow-style:none]
-              [scrollbar-width:none]
-              [&::-webkit-scrollbar]:hidden
+              px-12
+              overflow-hidden
+              no-scrollbar
             "
           >
-            {candies.map((candy, index) => (
+            {mockProducts.map((candy, index) => (
               <div
                 key={index}
                 className="
-                  min-w-[220px]
-                  sm:min-w-[240px]
+                  w-56
                   bg-white
                   rounded-2xl
                   p-4
                   shadow-sm
                   hover:shadow-md
-                  transition
                   shrink-0
+                  flex flex-col
                 "
               >
-                <div className="w-full h-48 rounded-xl mb-4 overflow-hidden bg-[#EAF9FF]">
+                <div className="aspect-square rounded-xl mb-4 overflow-hidden bg-[#EAF9FF]">
                   <img
                     src={candy.image}
                     alt={candy.name}
@@ -104,19 +103,23 @@ export default function PopularPicks() {
                   {candy.name}
                 </h3>
 
-                <p className="text-sm text-gray-500 font-['Patrick_Hand'] mb-3">
-                  {candy.desc}
+                <div className="mt-auto">
+                  <p className="text-sm text-black-500 font-['Patrick_Hand'] mb-3 text-center">
+                  {candy.price}
                 </p>
 
+                <Link to="/cart" className="flex items-center gap-2 font-['Jua'] text-xl">
                 <button className="
+                mt-auto
                   w-full py-2 rounded-full
                   bg-[#A6EAFF]
                   font-['Jua'] text-sm
                   hover:bg-[#8fdff7]
-                  transition
-                ">
-                  Add to cart 🛒
+                  transition">
+                  i want this 🛒
                 </button>
+                </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -126,7 +129,7 @@ export default function PopularPicks() {
             onClick={() => scroll("right")}
             className="
               hidden md:flex
-              absolute -right-4 top-1/2 -translate-y-1/2
+              absolute right-0 top-1/2 -translate-y-1/2
               w-10 h-10
               rounded-full
               bg-white shadow-md

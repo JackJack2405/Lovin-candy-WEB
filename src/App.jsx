@@ -12,6 +12,8 @@ import Admin from "./views/Admin-pages/Admin";
 import AdminLayout from "./components/Admin/AdminLayout";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import SpecialSets from "./views/SpecialSets";
+import Cart from "./views/Cart";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +36,8 @@ const router = createBrowserRouter([
       { path: "/admin", element: <Admin /> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
+      { path: "/specialsets", element: <SpecialSets /> },
+      { path: "/cart", element: <Cart /> },
     ],
   },
 
