@@ -11,7 +11,7 @@ export default function AdminSidebar({ isOpen }) {
   return (
     <aside
       className={[
-        "h-[calc(100vh-64px)]", // ถ้า Navbar สูง ~64px (ปรับได้)
+        "h-[calc(100vh-64px)]", 
         "sticky top-[64px]",
         "bg-gray-200/80",
         "transition-all duration-300",
@@ -38,7 +38,7 @@ export default function AdminSidebar({ isOpen }) {
                   !isOpen ? "justify-center" : "",
                 ].join(" ")
               }
-              title={!isOpen ? m.label : undefined} // เวลา sidebar หุบ เอาไว้ hover ดูชื่อ
+              title={!isOpen ? m.label : undefined} 
             >
               <span className="text-lg">{m.icon}</span>
               {isOpen && <span className="text-sm">{m.label}</span>}

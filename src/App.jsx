@@ -14,6 +14,8 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import ProfileAddressEdit from "./components/MyProfile/ProfileAddressEdit";
 import ProfileAddressButton from "./components/MyProfile/ProfileAddressButton";
+import SpecialSets from "./views/SpecialSets";
+import Cart from "./views/Cart";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,8 @@ const router = createBrowserRouter([
       { path: "/register", element: <Register /> },
       { path: "/profile/address/edit", element: <ProfileAddressEdit /> },
       { path: "/profile/address", element: <ProfileAddressButton /> },
+      { path: "/specialsets", element: <SpecialSets /> },
+      { path: "/cart", element: <Cart /> },
     ],
   },
 
