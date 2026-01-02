@@ -8,7 +8,7 @@ export default function AdminLayout() {
     const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div className="min-h-screen bg-[#FAF3F3]">
+    <div className="min-h-screen w-fullbg-[#FAF3F3]">
       <NavbarAdmin />
 
       <div className="flex">

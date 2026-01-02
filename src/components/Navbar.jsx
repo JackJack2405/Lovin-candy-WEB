@@ -15,7 +15,7 @@ export default function Navbar() {
           <span>LovinCandy</span>
         </Link>
 
-        {/* CENTER : Menu */}
+      
         <ul className="hidden md:flex gap-10 font-['Jua'] text-lg">
           <li>
             <Link to="/" className="hover:opacity-70">
@@ -40,7 +40,7 @@ export default function Navbar() {
           </li>
         </ul>
 
-        {/* RIGHT : Cart + Sign in/Register */}
+        
         <div className="flex items-center gap-4">
           {/* Cart */}
           <Link
@@ -51,7 +51,7 @@ export default function Navbar() {
             <BsCart4 className="text-2xl" />
           </Link>
 
-          {/* Sign in | Register (หน้าเดียวกัน) */}
+         
           <Link
             to="/Login"
             className="bg-white px-4 py-1 rounded-full text-sm shadow hover:bg-gray-100 transition"
