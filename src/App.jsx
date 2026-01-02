@@ -1,6 +1,6 @@
 import { createBrowserRouter, Router, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout";
-import Home from "./views/Home";
+import Home from "./views/Home.jsx";
 import MyProfile from "./views/MyProfile-pages/MyProfile";
 import Customize from "./views/Customize";
 import MyOrder from "./views/MyProfile-pages/MyOrder";
