@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
 
 const menus = [
-  { to: "/admin", label: "Dashboard", icon: "📊", end: true },
+  { to: "/admin", label: "Home", icon: "🏰", end: true },
+  { to: "/admin/AdminDashboard", label: "Dashboard", icon: "📊"},
   { to: "/admin/AdminUsers", label: "Users", icon: "👤" },
   { to: "/admin/products", label: "Products", icon: "🍬" },
   { to: "/admin/AdminChat", label: "Chat", icon: "💬" },
