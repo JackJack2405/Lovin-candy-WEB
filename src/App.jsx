@@ -10,7 +10,7 @@ import MyPayment from "./views/MyProfile-pages/MyPayment";
 import Products from "./views/Products";
 import Admin from "./views/Admin-pages/Admin";
 import AdminLayout from "./components/Admin/AdminLayout";
-import Login from "./components/login";
+import Login from "./components/Login";
 import Register from "./components/Register";
 
 const router = createBrowserRouter([
