@@ -13,7 +13,7 @@ export default function AdminSidebar({ isOpen }) {
     <aside
       className={[
         "h-[calc(100vh-64px)]", 
-        //"sticky top-[64px]",
+        
         "bg-gray-200/80",
         "transition-all duration-300",
         "border-r border-black/10",
