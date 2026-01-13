@@ -42,7 +42,7 @@ export default function Hero() {
                 text-lg
                 shadow-md
                 hover:scale-105
-                transition
+                transition text-shadow-xs
               "
             >
               ⏱ I'm in a Rush

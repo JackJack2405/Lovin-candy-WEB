@@ -25,7 +25,7 @@ export default function Admin() {
               to={c.to}
               className="w-full max-w-sm bg-[#A6EAFF] rounded-3xl shadow-md hover:shadow-lg hover:scale-[1.02] transition p-12 flex items-center justify-center"
             >
-              <p className="text-center font-['Jua'] text-2xl md:text-3xl text-pink-500 whitespace-pre-line">
+              <p className="text-center font-['Jua'] text-2xl  md:text-3xl text-pink-500 whitespace-pre-line text-shadow-xs">
                 {c.title}
               </p>
             </Link>
