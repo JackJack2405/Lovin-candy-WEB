@@ -4,19 +4,13 @@ import { RiCloseLargeLine } from "react-icons/ri";
 
 const CartItem = ({ cartItem, onIncrease, onDecrease, onRemoveItem }) => {
   const total = (Number(cartItem?.quantity) * Number(cartItem?.price)).toFixed(
-    2
+    2,
   );
 
   return (
-    <div
-      className="flex items-center justify-between gap-8
-      p-4 rounded-2xl hover:bg-[#F7FCFF] transition"
-    >
+    <div className="flex items-center justify-between gap-8 p-4 rounded-2xl hover:bg-[#F7FCFF] transition">
       <div className="flex items-center gap-4 max-w-75] w-full">
-        <div
-          className="w-[93px] h-[93px] rounded-xl flex items-center justify-center
-          bg-[#EAF9FF] border border-[#6EDCFF]/40"
-        >
+        <div className="w-[93px] h-[93px] rounded-xl flex items-center justify-center bg-[#EAF9FF] border border-[#6EDCFF]/40">
           <img
             className="w-15 h-15 object-cover"
             src={cartItem?.image}
@@ -41,14 +35,10 @@ const CartItem = ({ cartItem, onIncrease, onDecrease, onRemoveItem }) => {
 
       <p className="text-lg text-[#FF7FBF] font-bold">${cartItem?.price}</p>
 
-      <div
-        className="flex items-center justify-between max-w-45 w-full h-13.25
-        border border-[#6EDCFF]/40 rounded-3xl px-6 bg-white"
-      >
+      <div className="flex items-center justify-between max-w-45 w-full h-13.25 border border-[#6EDCFF]/40 rounded-3xl px-6 bg-white">
         <button
           onClick={onDecrease}
-          className="cursor-pointer border-r border-[#6EDCFF]/30 pr-2 h-full
-            text-[#6EDCFF] hover:text-[#3CC8FF] transition"
+          className="cursor-pointer border-r border-[#6EDCFF]/30 pr-2 h-full text-[#6EDCFF] hover:text-[#3CC8FF] transition"
         >
           <FaMinus size="1rem" />
         </button>
@@ -59,8 +49,7 @@ const CartItem = ({ cartItem, onIncrease, onDecrease, onRemoveItem }) => {
 
         <button
           onClick={onIncrease}
-          className="cursor-pointer border-l border-[#6EDCFF]/30 pl-2 h-full
-            text-[#6EDCFF] hover:text-[#3CC8FF] transition"
+          className="cursor-pointer border-l border-[#6EDCFF]/30 pl-2 h-full text-[#6EDCFF] hover:text-[#3CC8FF] transition"
         >
           <FaPlus size="1rem" />
         </button>
@@ -71,12 +60,7 @@ const CartItem = ({ cartItem, onIncrease, onDecrease, onRemoveItem }) => {
 
         <button
           onClick={onRemoveItem}
-          className="cursor-pointer w-10 h-10
-            border border-[#FF6B6B]/50 rounded-full
-            flex items-center justify-center
-            text-[#FF6B6B]
-            hover:bg-[#FF6B6B] hover:text-white
-            transition"
+          className="cursor-pointer w-10 h-10 border border-[#FF6B6B]/50 rounded-full flex items-center justify-center text-[#FF6B6B] hover:bg-[#FF6B6B] hover:text-white transition"
         >
           <RiCloseLargeLine size="1.25rem" />
         </button>

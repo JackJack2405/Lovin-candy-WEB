@@ -1,11 +1,10 @@
 import React from "react";
 import { AiTwotoneSafetyCertificate } from "react-icons/ai";
-import { Link } from "react-router";
 
 const OrderSummary = ({ cartItems }) => {
   const subtotal = cartItems?.reduce(
     (acc, item) => acc + item?.quantity * item?.price,
-    0
+    0,
   );
 
   const shipping = 20;
@@ -17,7 +16,6 @@ const OrderSummary = ({ cartItems }) => {
         order summary
       </h3>
 
-      {/* coupon */}
       <div className="py-4 px-4 border-y border-[#bae6fd]">
         <h4 className="text-base text-[#1e3a8a] font-archivo font-bold capitalize flex items-center justify-between">
           apply coupons
@@ -28,7 +26,6 @@ const OrderSummary = ({ cartItems }) => {
       </div>
 
       <div className="flex flex-col px-4 py-4 space-y-4">
-        {/* product details */}
         <div className="border-b border-[#bae6fd] pb-4 space-y-3">
           <h4 className="text-lg text-[#1e3a8a] font-bold capitalize">
             product details:
@@ -45,22 +42,17 @@ const OrderSummary = ({ cartItems }) => {
           </p>
         </div>
 
-        {/* total */}
         <div className="border-b border-[#bae6fd] pb-4 space-y-3">
           <h4 className="text-base text-[#1e3a8a] font-bold capitalize flex items-center justify-between">
             grand total
             <span className="text-[#fb7185] text-lg">${grandTotal}</span>
           </h4>
 
-          <Link
-            to={"/cart/checkout"}
-            className="py-3 bg-[#fb7185] hover:bg-[#f43f5e] rounded-3xl text-base text-white font-bold capitalize flex items-center justify-center transition"
-          >
+          <button className="py-3 bg-[#fb7185] hover:bg-[#f43f5e] rounded-3xl text-base text-white font-bold capitalize flex items-center justify-center transition w-full">
             proceed checkout
-          </Link>
+          </button>
         </div>
 
-        {/* secure */}
         <div>
           <p className="text-sm text-[#475569] font-medium capitalize flex items-center gap-2">
             <AiTwotoneSafetyCertificate
