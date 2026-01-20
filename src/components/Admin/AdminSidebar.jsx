@@ -1,9 +1,10 @@
 import { NavLink } from "react-router-dom";
 
 const menus = [
-  { to: "/admin", label: "Dashboard", icon: "📊", end: true },
+  { to: "/admin", label: "Home", icon: "🏰", end: true },
+  { to: "/admin/dashboard", label: "Dashboard", icon: "📊" },
   { to: "/admin/users", label: "Users", icon: "👤" },
-  { to: "/admin/products", label: "Products", icon: "🍬" },
+  { to: "/admin/products", label: "Products", icon: "🍭" },
   { to: "/admin/chat", label: "Chat", icon: "💬" },
 ];
 
@@ -12,7 +13,7 @@ export default function AdminSidebar({ isOpen }) {
     <aside
       className={[
         "h-[calc(100vh-64px)]", 
-        "sticky top-[64px]",
+        
         "bg-gray-200/80",
         "transition-all duration-300",
         "border-r border-black/10",

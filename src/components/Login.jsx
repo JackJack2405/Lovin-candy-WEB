@@ -9,7 +9,7 @@ const Login = () => {
       className="min-h-screen flex items-center justify-center bg-[#d3f3fd] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.25)]
 "
     >
-      <div className="w-[380px] bg-white/80 border border-white rounded-2xl p-8 shadow-2xl backdrop-blur-md">
+      <div className="w-95 bg-white/80 border border-white rounded-2xl p-8 shadow-2xl backdrop-blur-md">
         <h1 className="text-4xl text-[#2B3A55] font-extrabold text-center mb-10">
           Login
         </h1>
@@ -23,7 +23,7 @@ const Login = () => {
             />
             <label
               htmlFor=""
-              className="absolute text-sm text-[#2B3A55]/70 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]
+              className="absolute text-sm text-[#2B3A55]/70 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-left
               peer-placeholder-shown:scale-100
               peer-placeholder-shown:translate-y-0
               peer-focus:scale-75
@@ -43,7 +43,7 @@ const Login = () => {
             />
             <label
               htmlFor=""
-              className="absolute text-sm text-[#2B3A55]/70 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]
+              className="absolute text-sm text-[#2B3A55]/70 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-left
               peer-placeholder-shown:scale-100
               peer-placeholder-shown:translate-y-0
               peer-focus:scale-75

@@ -1,6 +1,6 @@
 import { createBrowserRouter, Router, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout";
-import Home from "./views/Home";
+import Home from "./views/Home.jsx";
 import MyProfile from "./views/MyProfile-pages/MyProfile";
 import Customize from "./views/Customize";
 import MyOrder from "./views/MyProfile-pages/MyOrder";
@@ -16,6 +16,10 @@ import ProfileAddressEdit from "./components/MyProfile/ProfileAddressEdit";
 import ProfileAddressButton from "./components/MyProfile/ProfileAddressButton";
 import SpecialSets from "./views/SpecialSets";
 import Cart from "./views/Cart";
+import AdminDashboard from "./components/Admin/AdminDashboard.jsx";
+import AdminUsers from "./components/Admin/AdminUsers.jsx";
+import ProductManagement from "./components/Admin/ProductManagement.jsx";
+import AdminChat from  "./components/Admin/AdminChat.jsx"
 
 const router = createBrowserRouter([
   {
@@ -35,7 +39,6 @@ const router = createBrowserRouter([
       { path: "/profile/favitems", element: <MyFavItems /> },
       { path: "/profile/address", element: <MyAddress /> },
       { path: "/profile/payment", element: <MyPayment /> },
-      { path: "/admin", element: <Admin /> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
       { path: "/profile/address/edit", element: <ProfileAddressEdit /> },
@@ -46,14 +49,19 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/admin",
-    element: <AdminLayout />,
+    path: "/admin",element: <AdminLayout />,
     errorElement: (
       <div className="min-h-screen flex justify-center items-center bg-[#FAF3F3]">
         <h1 className="text-4xl">404 Page Not Found</h1>
       </div>
     ),
-    children: [{ index: true, element: <Admin /> }],
+    children: [
+      { index: true, element: <Admin /> },
+      { path: "dashboard", element: <AdminDashboard /> },
+      { path: "users", element: <AdminUsers /> }, 
+      { path: "products", element: <ProductManagement />},
+      { path: "chat", element: <AdminChat /> },
+    ],
   },
 ]);
 

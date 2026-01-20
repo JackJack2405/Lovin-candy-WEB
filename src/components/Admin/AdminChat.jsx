@@ -1,4 +1,4 @@
-export default function AdminUsers() {
+export default function AdminChat() {
     return ( 
         <div>
             

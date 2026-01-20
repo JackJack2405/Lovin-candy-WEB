@@ -3,19 +3,18 @@ import NavbarAdmin from "./NavbarAdmin";
 import AdminSidebar from "./AdminSidebar";
 import { useState } from "react";
 
-
 export default function AdminLayout() {
     const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div className="min-h-screen bg-[#FAF3F3]">
+    <div className="min-h-screen w-full bg-[#FAF3F3]">
       <NavbarAdmin />
 
       <div className="flex">
         <AdminSidebar isOpen={isOpen} />
 
         <main className="flex-1 p-6">
-          
+
           <button
             onClick={() => setIsOpen((v) => !v)}
             className="mb-4 inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2 shadow hover:bg-gray-50"

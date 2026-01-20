@@ -1,9 +1,11 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import specialSets from "../data/specialSets";
+import  ImagePreviewModal  from "./PopularPick/ImagePreviewModal";
 
 export default function SpecialSets() {
   const scrollRef = useRef(null);
+  const [previewImage, setPreviewImage] = useState(null);
 
   const scroll = (direction) => {
     if (!scrollRef.current) return;
@@ -15,7 +17,8 @@ export default function SpecialSets() {
   };
 
   return (
-    <section className="w-full py-16 bg-[#FAF3F3]">
+  <>
+    <section className="w-full py-16 bg-[#EAF9FF]">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Header */}
@@ -90,20 +93,24 @@ export default function SpecialSets() {
                   shrink-0
                 "
               >
-                <div className="aspect-square rounded-xl mb-4 overflow-hidden bg-[#EAF9FF]">
+                 {/* Image */}
+                  <button
+                    onClick={() => setPreviewImage(special.image)}
+                    className="aspect-square rounded-xl mb-4 overflow-hidden bg-[#EAF9FF]"
+                  >
                   <img
                     src={special.image}
                     alt={special.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover hover:scale-105 transition"
                   />
-                </div>
+                </button>
 
-                <h3 className="font-['Jua'] text-lg mb-1">
+                <h3 className="font-['Jua'] text-lg text-center mb-1">
                   {special.name}
                 </h3>
 
-                <p className="text-sm text-gray-500 font-['Patrick_Hand'] mb-3">
-                  {special.desc}
+                <p className="text-sm text-center font-['Patrick_Hand'] mb-3">
+                  {special.price}
                 </p>
 
                 <Link to="/cart" className="flex items-center gap-2 font-['Jua'] text-xl">
@@ -141,5 +148,14 @@ export default function SpecialSets() {
         </div>
       </div>
     </section>
+
+     {/* ===== Image Preview Modal ===== */}
+          {previewImage && (
+            <ImagePreviewModal
+              image={previewImage}
+              onClose={() => setPreviewImage(null)}
+            />
+          )}
+  </>
   );
 }
