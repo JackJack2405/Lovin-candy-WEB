@@ -18,7 +18,7 @@ export default function ProductManagement() {
   const [editingId, setEditingId] = useState(null);
 
   const [form, setForm] = useState({
-   
+  
     name: "",
     type: "",
     price: "",
