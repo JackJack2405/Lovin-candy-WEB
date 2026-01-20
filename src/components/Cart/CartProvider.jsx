@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { CartContext } from "./CartContext";
 
-// เปลี่ยนจาก export function เป็น Component
 export function UseCartHook() {
   const context = React.useContext(CartContext);
   if (!context) {
