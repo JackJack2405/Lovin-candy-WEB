@@ -53,7 +53,7 @@ export default function ProductManagement() {
 
   useEffect(() => {
     fetchProducts();
-    
+
   }, [page]);
 
   const closeModal = () => setOpen(false);
