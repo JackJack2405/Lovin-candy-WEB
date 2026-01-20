@@ -34,13 +34,12 @@ export default function Hero() {
               to="/specialsets"
               className="
                 bg-[#FF74B1]
-                text-white
                 px-8
                 py-3
                 rounded-full
                 font-['Jua']
                 text-lg
-                shadow-md
+                text-black
                 hover:scale-105
                 transition text-shadow-xs
               "
