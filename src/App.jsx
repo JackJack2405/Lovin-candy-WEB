@@ -20,9 +20,11 @@ import AdminDashboard from "./components/Admin/AdminDashboard.jsx";
 import AdminUsers from "./components/Admin/AdminUsers.jsx";
 import ProductManagement from "./components/Admin/ProductManagement.jsx";
 import AdminChat from "./components/Admin/AdminChat.jsx";
-import { CartProvider } from "./CartProvider";
+import { CartProvider } from "./components/Cart/CartProvider.jsx";
 import Checkout from "./components/Checkout/checkoutPage.jsx";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart.jsx";
+import OrderSummary from "./components/OrderSummary/OrderSummary.jsx";
+import CartItem from "./components/CartItem/CartItem.jsx";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +52,8 @@ const router = createBrowserRouter([
       { path: "/cart", element: <Cart /> },
       { path: "/shoppingcart", element: <ShoppingCart /> },
       { path: "/checkout", element: <Checkout /> },
+      { path: "/OrderSummary", element: <OrderSummary /> },
+      { path: "/CartItem", element: <CartItem /> },
     ],
   },
 

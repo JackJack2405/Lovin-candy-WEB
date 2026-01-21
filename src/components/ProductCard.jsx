@@ -1,4 +1,4 @@
-import { useCart } from "./userCart";
+import { useCart } from "../components/Cart/UserCart.jsx";
 
 export default function ProductCard({ id, image, name, price }) {
   const { addToCart } = useCart();

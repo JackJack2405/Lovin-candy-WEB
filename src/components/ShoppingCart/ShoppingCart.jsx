@@ -1,7 +1,8 @@
 import React from "react";
-import { useCart } from "./CartContext";
-import OrderSummary from "./OrderSummary";
-import CartItem from "./CartItem";
+import { Link } from "react-router-dom";
+import { useCart } from "../Cart/UserCart.jsx";
+import OrderSummary from "../OrderSummary/OrderSummary.jsx";
+import CartItem from "../CartItem/CartItem.jsx";
 
 const ShoppingCart = () => {
   const { cartItems, handleQuantityChange, handleRemoveItem } = useCart();
@@ -20,9 +21,11 @@ const ShoppingCart = () => {
                 <p className="text-2xl text-gray-600 mb-4">
                   Your cart is empty
                 </p>
-                <button className="text-blue-600 underline text-lg font-semibold">
-                  Start Shopping
-                </button>
+                <Link to="/products">
+                  <button className="text-blue-600 underline text-lg font-semibold">
+                    Start Shopping
+                  </button>
+                </Link>
               </div>
             ) : (
               <>
@@ -47,12 +50,12 @@ const ShoppingCart = () => {
                 </div>
 
                 <div className="flex flex-col items-center gap-4">
-                  <Link to="/Checkout">
+                  <Link to="/checkout">
                     <button className="w-full max-w-md px-8 py-4 bg-[#ffc0e3] hover:bg-[#ffb0d8] text-[#00a6e8] font-bold text-lg rounded-full border-2 border-black transition">
                       CHECKOUT
                     </button>
                   </Link>
-                  <Link to="/Checkout">
+                  <Link to="/checkout">
                     <button className="w-full max-w-md px-8 py-4 bg-[#ffc0e3] hover:bg-[#ffb0d8] text-[#00a6e8] font-bold text-lg rounded-full border-2 border-black transition">
                       CHECKOUT AS GUEST
                     </button>

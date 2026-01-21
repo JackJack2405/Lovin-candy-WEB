@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AiTwotoneSafetyCertificate } from "react-icons/ai";
 import { GoArrowLeft } from "react-icons/go";
 
-import { useCart } from "./useCart";
+import { useCart } from "../Cart/UserCart.jsx";
 
 const Checkout = () => {
   const { cartItems } = useCart();
