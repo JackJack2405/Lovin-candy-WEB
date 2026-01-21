@@ -51,7 +51,7 @@ export default function ProfileElementB ({ data }) {
           </div>
 
           <div className='tableitems flex flex-col items-center p-2 bg-gray-50 md:bg-transparent rounded-xl'>
-            <span className="text-gray-500 text-sm md:text-base">To pay</span>
+            <span className="text-gray-500 text-sm md:text-base">Pending</span>
             <span className="text-pink-500 font-bold text-lg">{orderStats.pending}</span>
           </div>
 
