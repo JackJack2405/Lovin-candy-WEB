@@ -15,7 +15,6 @@ export default function Customize() {
     {id: "bag",name: "Bag",candyLimit: 2,price: 200, image: "/bag.png",description: " Pick up to 2 sins 😇 ",},
     {id: "bowl",name: "Bowl", candyLimit: 4, price: 300, image: "/bowl.png", description: "Pick up to 4 sins 😏",},
     {id: "jar",name: "Jar", candyLimit: 8, price: 400, image: "/jar.png", description: "Pick up to 8 sins 😈",},
-      
   ];
 
   const candyOptions = [
@@ -38,11 +37,15 @@ export default function Customize() {
     }, 100);
   }
 
-  function handleAddCandy(candy) {
-    if (selectedCandies.length < selectedSize.candyLimit) {
-      setSelectedCandies([...selectedCandies, { ...candy, cartId: Date.now() }]);
-    }
+ function handleAddCandy(candy) {
+  if (selectedCandies.length < selectedSize.candyLimit) {
+    const cartId = crypto.randomUUID(); // แนะนำที่สุด
+    setSelectedCandies([
+      ...selectedCandies,
+      { ...candy, cartId }
+    ]);
   }
+}
 
   function handleRemoveCandy(cartId) {
     setSelectedCandies(selectedCandies.filter((c) => c.cartId !== cartId));
