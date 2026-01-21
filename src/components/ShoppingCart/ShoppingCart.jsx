@@ -47,12 +47,16 @@ const ShoppingCart = () => {
                 </div>
 
                 <div className="flex flex-col items-center gap-4">
-                  <button className="w-full max-w-md px-8 py-4 bg-[#ffc0e3] hover:bg-[#ffb0d8] text-[#00a6e8] font-bold text-lg rounded-full border-2 border-black transition">
-                    CHECKOUT
-                  </button>
-                  <button className="w-full max-w-md px-8 py-4 bg-[#ffc0e3] hover:bg-[#ffb0d8] text-[#00a6e8] font-bold text-lg rounded-full border-2 border-black transition">
-                    CHECKOUT AS GUEST
-                  </button>
+                  <Link to="/Checkout">
+                    <button className="w-full max-w-md px-8 py-4 bg-[#ffc0e3] hover:bg-[#ffb0d8] text-[#00a6e8] font-bold text-lg rounded-full border-2 border-black transition">
+                      CHECKOUT
+                    </button>
+                  </Link>
+                  <Link to="/Checkout">
+                    <button className="w-full max-w-md px-8 py-4 bg-[#ffc0e3] hover:bg-[#ffb0d8] text-[#00a6e8] font-bold text-lg rounded-full border-2 border-black transition">
+                      CHECKOUT AS GUEST
+                    </button>
+                  </Link>
                 </div>
               </>
             )}
