@@ -39,28 +39,28 @@ export default function MyProfile() {
 
   return (
     <>
-      <div className="my-profile">
-        <div className="profile-a">
+      <div className="my-profile flex flex-col md:flex-row gap-0 p-4 md:p-0">
+        <div className="profile-a w-full md:w-75 shrink-0">
           <ProfileElementA />
         </div>
 
-        <div className="flex flex-col gap-5 w-full min-w-0 overflow-hidden">
-          <div className="flex justify-between">
-            <h1 className="text-5xl ml-6 mt-5">My Profile</h1>
+        <div className="flex flex-col gap-5 w-full min-w-0 overflow-hidden md:ml-5">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 px-2 md:pl-2 md:pr-6 mt-5  ">
+            <h1 className="text-3xl md:text-5xl">My Profile</h1>
             <button
-              className="mr-5 mt-5 text-2xl bg-white px-6 py-2 rounded-lg shadow-xl hover:text-white hover:bg-[#FF74B1] transition duration-400 hover:scale-105"
+              className="text-lg md:text-2xl bg-white px-4 py-2 md:px-6 md:py-2 rounded-lg shadow-xl hover:text-white hover:bg-[#FF74B1] transition duration-400 hover:scale-105 w-full sm:w-auto "
               onClick={() => setIsEditOpen(true)}
             >
               Edit Profile
             </button>
           </div>
-          <div className="profile-b">
+          <div className="profile-b w-full">
             <ProfileElementB data={userData}/>
           </div>
-          <div className="profile-c">
+          <div className="profile-c w-full">
             <ProfileElementC data={userData}/>
           </div>
-          <div className="profile-d">
+          <div className="profile-d w-full">
             <ProfileElementD />
           </div>
 

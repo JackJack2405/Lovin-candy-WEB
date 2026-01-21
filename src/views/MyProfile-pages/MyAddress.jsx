@@ -2,8 +2,31 @@ import ProfileElementA from "../../components/MyProfile/ProfileElementA";
 import '../../components/MyProfile/ProfileElement.css';
 import ProfileAddress from "../../components/MyProfile/ProfileAddress";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import axios from "axios";
 
 export default function MyAddress() {
+
+  const [userData, setUserData] = useState(null);
+  const apiBase = import.meta.env.VITE_API_URL;
+
+  useEffect(() => {
+    const fetchAddress = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const res = await axios.get(`${apiBase}/users/me`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setUserData(res.data.data);
+      } catch (err) {
+        console.error("Fetch address error:", err);
+      }
+    };
+    fetchAddress();
+  }, [apiBase]);
+
   return (
     <>
       <div className="my-profile">
@@ -21,7 +44,7 @@ export default function MyAddress() {
             </Link>
           </div>
           <div className="profile-c">
-            <ProfileAddress />
+            <ProfileAddress data={userData}/>
           </div>
       </div>
     </div>
