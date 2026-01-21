@@ -36,9 +36,5 @@ export default function ProductCard({ id, imageUrl, name, price }) {
       </div>
     </div>
   );
-<<<<<<< HEAD
-}
-=======
 }
 
->>>>>>> 2615f75b0a1cecb7cd2699e148aa5a2782670b8c
