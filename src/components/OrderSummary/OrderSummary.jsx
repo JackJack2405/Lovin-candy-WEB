@@ -8,7 +8,7 @@ const OrderSummary = ({ cartItems }) => {
     0,
   );
 
-  const vatRate = 0.4; // 40%
+  const vatRate = 0.07;
   const vat = subtotal * vatRate;
   const total = subtotal + vat;
 
