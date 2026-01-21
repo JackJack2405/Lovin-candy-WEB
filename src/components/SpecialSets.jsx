@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import ImagePreviewModal from "./PopularPick/ImagePreviewModal";
+import { useCart } from "../components/Cart/UserCart.jsx";
+import axios from "axios";
 
 export default function SpecialSets() {
+  const API_BASE = import.meta.env.VITE_API_URL;
   const scrollRef = useRef(null);
   const [specialSets, setSpecialSets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [previewImage, setPreviewImage] = useState(null);
+  const { addToCart, openCart } = useCart();
 
   const scroll = (direction) => {
     if (!scrollRef.current) return;
@@ -20,14 +24,11 @@ export default function SpecialSets() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch(
-          "http://localhost:3000/api/products?limit=50"
-        );
-        const data = await res.json();
+        const res = await axios.get(`${API_BASE}/products?limit=50`);
 
-        if (data.success) {
+        if (res.data.success) {
           // 👉 กรองเฉพาะ SPECIALSET
-          const onlySpecialSets = data.data.filter(
+          const onlySpecialSets = res.data.data.filter(
             (product) =>
               product.category?.toUpperCase() === "SPECIALSET"
           );
@@ -42,7 +43,7 @@ export default function SpecialSets() {
     };
 
     fetchProducts();
-  }, []);
+  }, [API_BASE]);
 
   if (loading) {
     return (
@@ -102,6 +103,7 @@ export default function SpecialSets() {
                 bg-white shadow-md
                 items-center justify-center
                 z-10
+                cursor-pointer
               "
             >
               ◀
@@ -153,19 +155,24 @@ export default function SpecialSets() {
                     ฿{item.price}
                   </p>
 
-                  <Link to="/cart" className="mt-auto">
-                    <button
-                      className="
-                        w-full py-2 rounded-full
-                        bg-[#A6EAFF]
-                        font-['Jua'] text-sm
-                        hover:bg-[#8fdff7]
-                        transition
-                      "
-                    >
-                      I want this 🛒
-                    </button>
-                  </Link>
+                  <button
+                    onClick={() => {
+                      addToCart(item); // 2. เพิ่มสินค้าลงตะกร้า
+                      openCart();      // 3. สั่งให้ตะกร้าด้านข้างเด้งออกมา
+                    }}
+                    className="
+                      mt-auto
+                      w-full py-2 rounded-full
+                      bg-[#A6EAFF]
+                      font-['Jua'] text-sm
+                      hover:bg-[#8fdff7]
+                      active:scale-95
+                      transition
+                      cursor-pointer
+                    "
+                  >
+                    I want this 🛒
+                  </button>
                 </div>
               ))}
             </div>
@@ -181,6 +188,7 @@ export default function SpecialSets() {
                 bg-white shadow-md
                 items-center justify-center
                 z-10
+                cursor-pointer
               "
             >
               ▶

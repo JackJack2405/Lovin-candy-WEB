@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CartContext } from "../Cart/CartContext.jsx";
 
 export function UseCartHook() {
@@ -10,7 +10,25 @@ export function UseCartHook() {
 }
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const openCart = () => setIsCartOpen(true);
+  const closeCart = () => setIsCartOpen(false);
+  const toggleCart = () => setIsCartOpen(!isCartOpen);
+
+  const [cartItems, setCartItems] = useState(() => {
+    try {
+      const savedCart = localStorage.getItem("cart_storage");
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+      console.error("Error loading cart from localStorage", error);
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("cart_storage", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addToCart = (product) => {
     setCartItems((prevItems) => {
@@ -26,6 +44,18 @@ export const CartProvider = ({ children }) => {
 
       return [...prevItems, { ...product, quantity: 1 }];
     });
+  };
+
+  const updateQuantity = (id, newQuantity) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item._id === id ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
+
+  const removeFromCart = (id) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item._id !== id));
   };
 
   const handleQuantityChange = (id, action) => {
@@ -53,6 +83,12 @@ export const CartProvider = ({ children }) => {
       value={{
         cartItems,
         addToCart,
+        updateQuantity, 
+        removeFromCart,
+        isCartOpen,
+        openCart,
+        closeCart,
+        toggleCart,
         handleQuantityChange,
         handleRemoveItem,
       }}

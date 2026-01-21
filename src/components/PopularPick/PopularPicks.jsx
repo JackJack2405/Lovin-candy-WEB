@@ -1,22 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import ImagePreviewModal from "./ImagePreviewModal";
+import ProductDetailModal from "../ProductDetailModal.jsx";
+import axios from "axios";
+import { useCart } from "../Cart/UserCart.jsx";
 
 export default function PopularPicks() {
   const scrollRef = useRef(null);
   const [products, setProducts] = useState([]);
-  const [previewImage, setPreviewImage] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const API_BASE = import.meta.env.VITE_API_URL;
+  const { addToCart, openCart } = useCart();
 
   useEffect(() => {
     const fetchPopular = async () => {
       try {
-        const res = await fetch(
-          "http://localhost:3000/api/products/popular"
-        );
-        const data = await res.json();
+        const res = await axios.get(`${API_BASE}/products/popular`);
 
-        if (data.success) {
-          setProducts(data.data); // ✅ Top 10 จาก backend
+        if (res.data.success) { 
+          setProducts(res.data.data); 
         }
       } catch (err) {
         console.error("Failed to fetch popular products", err);
@@ -24,7 +25,7 @@ export default function PopularPicks() {
     };
 
     fetchPopular();
-  }, []);
+  }, [API_BASE]);
 
   const scroll = (direction) => {
     if (!scrollRef.current) return;
@@ -63,7 +64,7 @@ export default function PopularPicks() {
           <div className="relative">
             <button
               onClick={() => scroll("left")}
-              className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md items-center justify-center z-10"
+              className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md items-center justify-center z-10 cursor-pointer"
             >
               ◀
             </button>
@@ -78,13 +79,13 @@ export default function PopularPicks() {
                   className="w-56 bg-white rounded-2xl p-4 shadow-sm hover:shadow-md shrink-0 flex flex-col"
                 >
                   <button
-                    onClick={() => setPreviewImage(product.imageUrl)}
-                    className="h-50 rounded-xl mb-3 overflow-hidden bg-[#EAF9FF]"
+                  onClick={() => setSelectedProduct(product)}
+                  className="h-50 rounded-xl mb-3 overflow-hidden bg-[#EAF9FF]"
                   >
                     <img
                       src={product.imageUrl}
                       alt={product.name}
-                      className="w-full h-full object-cover hover:scale-105 transition"
+                      className="w-full h-full object-cover hover:scale-105 transition cursor-pointer"
                     />
                   </button>
 
@@ -97,11 +98,15 @@ export default function PopularPicks() {
                       {product.price} ฿
                     </p>
 
-                    <Link to="/cart">
-                      <button className="w-full py-2 rounded-full bg-[#A6EAFF] font-['Jua'] text-sm hover:bg-[#8fdff7] transition">
-                        I want this 🛒
-                      </button>
-                    </Link>
+                    <button 
+                      className="w-full py-2 rounded-full bg-[#A6EAFF] font-['Jua'] text-sm hover:bg-[#8fdff7] transition cursor-pointer active:scale-95"
+                      onClick={() => {
+                        addToCart(product);
+                        openCart();
+                      }}
+                    >
+                      I want this 🛒
+                    </button>
                   </div>
                 </div>
               ))}
@@ -109,7 +114,7 @@ export default function PopularPicks() {
 
             <button
               onClick={() => scroll("right")}
-              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md items-center justify-center z-10"
+              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md items-center justify-center z-10 cursor-pointer"
             >
               ▶
             </button>
@@ -117,12 +122,12 @@ export default function PopularPicks() {
         </div>
       </section>
 
-      {previewImage && (
-        <ImagePreviewModal
-          image={previewImage}
-          onClose={() => setPreviewImage(null)}
-        />
-      )}
+      {selectedProduct && (
+      <ProductDetailModal
+        product={selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+      />
+)}
     </>
   );
 }

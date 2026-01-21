@@ -1,10 +1,35 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../components/Cart/UserCart.jsx";
+import axios from "axios";
 
 export default function Customize() {
+  const apiBase = import.meta.env.VITE_API_URL;
+  const [candyOptions, setCandyOptions] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedCandies, setSelectedCandies] = useState([]);
+
+  useEffect(() => {
+  const fetchCandies = async () => {
+    try {
+      const res = await axios.get(`${apiBase}/products?limit=100`); 
+      
+      if (res.data.success) {
+        const filtered = res.data.data.filter(candy => {
+          const category = candy.category ? candy.category.toUpperCase() : "";
+          return category !== "SPECIALSET" && category !== "PACKAGE";
+        });
+        setCandyOptions(filtered);
+      }
+    } catch (err) {
+      console.error("Error fetching candies:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchCandies();
+}, [apiBase]);
 
   const candySection = useRef(null);
 
@@ -17,17 +42,6 @@ export default function Customize() {
     {id: "jar",name: "Jar", candyLimit: 8, price: 400, image: "/jar.png", description: "Pick up to 8 sins 😈",},
   ];
 
-  const candyOptions = [
-    { id: 1, name: "Blue Raspberry Lollipop Bag", image: "/Blue Raspberry Lollipop Bag.png" },
-    { id: 2, name: "Orange Creamsicle Cream Swirl Lollipop Bag", image: "/Orange Creamsicle Cream Swirl Lollipop Bag.png" },
-    { id: 3, name: "Strawberry Shortcake Cream Swirl Lollipop Bag", image: "/Strawberry Shortcake Cream Swirl Lollipop Bag.png" },
-    { id: 4, name: "Cotton Candy Lollipop Bag", image: "/Cotton Candy Lollipop Bag.png" },
-    { id: 5, name: "Mini Sour Rainbow Belts", image: "/Mini Sour Rainbow Belts.png" },
-    { id: 6, name: "Jelly Belly UnBEARably Hot Cinnamon Bears", image: "/Jelly Belly UnBEARably Hot Cinnamon Bears.png" },
-    { id: 7, name: "Gummy Roses", image: "/Gummy Roses.png" },
-    { id: 8, name: "Heavenly Sours Gummy", image: "/Heavenly Sours Gummy.png" },
-  ];
-
   function handleSelectPackage(pkg) {
     setSelectedSize(pkg);
     setSelectedCandies([]);
@@ -37,14 +51,14 @@ export default function Customize() {
     }, 100);
   }
 
- function handleAddCandy(candy) {
-  if (selectedCandies.length < selectedSize.candyLimit) {
-    const cartId = crypto.randomUUID(); // แนะนำที่สุด
-    setSelectedCandies([
-      ...selectedCandies,
-      { ...candy, cartId }
-    ]);
-  }
+  function handleAddCandy(candy) {
+    if (selectedCandies.length < selectedSize.candyLimit) {
+      const cartId = crypto.randomUUID(); // แนะนำที่สุด
+      setSelectedCandies([
+        ...selectedCandies,
+        { ...candy, cartId }
+      ]);
+    }
 }
 
   function handleRemoveCandy(cartId) {
@@ -65,23 +79,28 @@ export default function Customize() {
   }
 
   function handleCheckout() {
-    selectedCandies.forEach((candy) => {
-      addToCart({
-        id: candy.cartId,
-        name: candy.name,
-        image: candy.image,
-        price: selectedSize.price / selectedSize.candyLimit,
-      });
-    });
+    const candyListText = selectedCandies.map(candy => candy.name).join(", ");
 
-    navigate("/checkout");
+  addToCart({
+    _id: `custom-${crypto.randomUUID()}`, 
+    name: `Custom ${selectedSize.name}`,
+    imageUrl: selectedSize.image,
+    price: selectedSize.price,
+    description: `Included: ${candyListText}`,
+    selectedCandies: selectedCandies,
+    quantity: 1,
+    isCustom: true
+  });
+
+    navigate("/shoppingcart");
+    window.scrollTo(0, 0);
   }
 
   const isCartFull = selectedCandies.length >= (selectedSize?.candyLimit || 0);
 
   return (
     <div className="min-h-screen flex bg-[#fff7fa]">
-      <div className="flex-1 px-6 pr-[420px] pb-20">
+      <div className="flex-1 px-6 pr-105 pb-20">
         <div className="text-center my-12">
           <h1 className="text-[42px] text-gray-800 drop-shadow font-bold">
             🍭 Customize Your Sweet Guilty Pleasure
@@ -99,7 +118,7 @@ export default function Customize() {
                 key={pkg.id}
                 onClick={() => handleSelectPackage(pkg)}
                 className={`
-                  w-[200px] p-5 rounded-xl bg-[#A6EAFF] cursor-pointer
+                  w-50 p-5 rounded-xl bg-[#A6EAFF] cursor-pointer
                   transition-all duration-300 text-center
                   hover:scale-105 hover:shadow-lg
                   ${selectedSize?.id === pkg.id ? "ring-4 ring-[#ff7ab6]" : ""}
@@ -129,12 +148,12 @@ export default function Customize() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
               {candyOptions.map((candy) => (
                 <div
-                  key={candy.id}
+                  key={candy._id}
                   className="bg-[#A6EAFF] rounded-2xl p-5 flex flex-col items-center h-full shadow-md hover:shadow-xl transition"
                 >
                   <div className="h-32 flex items-center justify-center mb-4">
                     <img
-                      src={candy.image}
+                      src={candy.imageUrl}
                       alt={candy.name}
                       className="max-h-28 object-contain"
                     />
@@ -153,6 +172,7 @@ export default function Customize() {
                       text-white font-bold
                       px-8 py-2.5 rounded-full
                       hover:scale-105 transition
+                      cursor-pointer
                       disabled:from-gray-300 disabled:to-gray-300
                     "
                   >
@@ -195,7 +215,7 @@ export default function Customize() {
 
               <button
                 onClick={handleCancel}
-                className="w-full mb-4 py-2 rounded-lg border border-red-300 text-red-500 font-bold hover:bg-red-50"
+                className="w-full mb-4 py-2 rounded-lg border border-red-300 text-red-500 font-bold hover:bg-red-50 cursor-pointer"
               >
                 Change my guilt 😈
               </button>
@@ -211,13 +231,13 @@ export default function Customize() {
                     className="flex items-center gap-3 bg-gray-50 p-2 rounded"
                   >
                     <img
-                      src={candy.image}
+                      src={candy.imageUrl}
                       className="w-10 h-10 object-contain"
                     />
                     <span className="flex-1">{candy.name}</span>
                     <button
                       onClick={() => handleRemoveCandy(candy.cartId)}
-                      className="bg-red-100 w-8 h-8 rounded hover:bg-red-200"
+                      className="bg-red-100 w-8 h-8 rounded hover:bg-red-200 cursor-pointer"
                     >
                       🗑️
                     </button>
@@ -233,6 +253,7 @@ export default function Customize() {
                   text-white font-bold text-lg
                   bg-gradient-to-r from-[#A6EAFF] to-[#ff7ab6]
                   disabled:bg-gray-300
+                  cursor-pointer
                 "
               >
                 {selectedCandies.length === selectedSize.candyLimit

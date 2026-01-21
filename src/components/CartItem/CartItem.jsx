@@ -25,13 +25,27 @@ const CartItem = ({ cartItem, onIncrease, onDecrease, onRemoveItem }) => {
               <h3 className="text-2xl font-bold text-black mb-1">
                 {cartItem?.name}
               </h3>
-              <p className="text-sm text-gray-600">Size: {cartItem?.size}</p>
+
+              {cartItem?.description ? (
+                <div className="mt-2 mb-3">
+                  <p className="text-xs text-gray-400 font-semibold uppercase mb-1">Included Sins:</p>
+                  <ul className="list-none space-y-1">
+                    {cartItem.description.split(", ").map((candy, index) => (
+                      <li key={index} className="text-sm text-pink-500 italic flex items-center">
+                        <span className="mr-2">•</span> {candy}
+                      </li>
+              ))}
+          </ul>
+        </div>
+      ) : (
+        <p className="text-xs text-gray-400 mt-1">Standard Pack</p>
+      )}
             </div>
 
             {/* Remove Button */}
             <button
               onClick={onRemoveItem}
-              className="text-red-500 hover:text-red-700 font-semibold text-sm transition"
+              className="text-red-500 hover:text-red-700 font-semibold text-sm transition cursor-pointer"
             >
               Remove
             </button>
@@ -46,7 +60,7 @@ const CartItem = ({ cartItem, onIncrease, onDecrease, onRemoveItem }) => {
               <div className="flex items-center border-2 border-gray-400 rounded">
                 <button
                   onClick={onDecrease}
-                  className="px-4 py-2 hover:bg-gray-100 transition text-black font-bold text-lg"
+                  className="px-4 py-2 hover:bg-gray-100 transition text-black font-bold text-lg cursor-pointer"
                 >
                   -
                 </button>
@@ -55,7 +69,7 @@ const CartItem = ({ cartItem, onIncrease, onDecrease, onRemoveItem }) => {
                 </span>
                 <button
                   onClick={onIncrease}
-                  className="px-4 py-2 hover:bg-gray-100 transition text-black font-bold text-lg"
+                  className="px-4 py-2 hover:bg-gray-100 transition text-black font-bold text-lg cursor-pointer"
                 >
                   +
                 </button>

@@ -59,7 +59,7 @@ export default function Hero() {
                 text-lg
                 shadow-md
                 hover:scale-105
-                transition
+                transition  
               "
             >
               🍬 Build Your Mix
@@ -79,6 +79,8 @@ export default function Hero() {
               rounded-[2.5rem]
               shadow-xl
               hover:scale-105
+              transition
+              cursor-pointer
             "
           />
         </div>

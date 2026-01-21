@@ -1,19 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
 import { BsCart4, BsList, BsX } from "react-icons/bs";
 import { useState, useEffect } from "react";
+import { useCart } from "../components/Cart/UserCart.jsx";
 
-export default function Navbar() {
+export default function Navbar({ onCartOpen }) {
   const [open, setOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
 
+  const { cartItems } = useCart();
+
+  const totalItems = cartItems.reduce((total, item) => total + (Number(item.quantity) || 0), 0);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
+    setIsLogin(!!token);
   }, []);
 
   const handleLogout = () => {
@@ -27,6 +28,11 @@ export default function Navbar() {
 
   return (
     <nav className="bg-[#A6EAFF] shadow-sm sticky top-0 z-50">
+
+      {/* <button onClick={onCartOpen} className="cursor-pointer">
+        🛒
+      </button> */}
+
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
         
@@ -36,7 +42,7 @@ export default function Navbar() {
             alt="LovinCandy logo"
             className="h-10 w-auto object-contain md:h-14"
           />
-           <span className="hidden md:inline">LovinCandy</span>
+          <span className="hidden md:inline">LovinCandy</span>
         </Link>
 
         {/* DESKTOP MENU */}
@@ -51,15 +57,22 @@ export default function Navbar() {
         {/* RIGHT */}
         <div className="flex items-center gap-4">
           {/* Cart */}
-          <Link to="/shoppingcart" className="text-xl hover:scale-110 transition">
-            <BsCart4 className="text-2xl" />
-          </Link>
+          <div className="relative">
+            <Link to="/shoppingcart" className="text-xl hover:scale-110 transition flex items-center">
+              <BsCart4 className="text-2xl" />
+              {totalItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full shadow-md z-10">
+                  {totalItems > 99 ? "99+" : totalItems}
+                </span>
+              )}
+            </Link>
+          </div>
 
           {/* Login */}
           {isLogin ? (
             <button
               onClick={handleLogout}
-              className="hidden md:inline-block bg-pink-400 text-white px-4 py-1 rounded-full text-sm shadow hover:bg-pink-500 transition"
+              className="cursor-pointer hidden md:inline-block bg-pink-400 text-white px-4 py-1 rounded-full text-sm shadow hover:bg-pink-500 transition"
             >
               Logout
             </button>
@@ -96,7 +109,7 @@ export default function Navbar() {
               {isLogin ? (
                 <button
                   onClick={handleLogout}
-                  className="inline-block bg-pink-400 text-white px-4 py-1 rounded-full text-sm shadow w-full text-center"
+                  className="inline-block bg-pink-400 text-white px-4 py-1 rounded-full text-sm shadow w-full text-center "
                 >
                   Logout
                 </button>

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import ProductCard from "../components/ProductCard";
+import ProductDetailModal from "../components/ProductDetailModal.jsx";
 
 // const API_BASE = "http://localhost:3000/api/products";
 const API_BASE = import.meta.env.VITE_API_URL;
@@ -7,6 +8,7 @@ const API_BASE = import.meta.env.VITE_API_URL;
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   // search
   const [searchInput, setSearchInput] = useState("");
@@ -113,7 +115,7 @@ export default function Products() {
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-4 py-2 rounded-xl border border-pink-300"
+            className="px-4 py-2 rounded-xl border border-pink-300 cursor-pointer"
           >
             <option value="">All Categories</option>
             {categories.map((cat) => (
@@ -127,7 +129,7 @@ export default function Products() {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="px-4 py-2 rounded-xl border border-pink-300"
+            className="px-4 py-2 rounded-xl border border-pink-300 cursor-pointer"
           >
             <option value="newest">Newest</option>
             <option value="popular">Most Popular</option>
@@ -146,15 +148,24 @@ export default function Products() {
             {visibleProducts.map((product) => (
               <ProductCard
                 key={product._id}
+                id={product._id}
                 imageUrl={product.imageUrl}
                 name={product.name}
                 price={product.price}
                 product={product}
+                onPreview={() => setSelectedProduct(product)}
               />
             ))}
           </div>
         )}
       </div>
+
+      {selectedProduct && (
+        <ProductDetailModal
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+        />
+      )}
     </section>
   );
 }
