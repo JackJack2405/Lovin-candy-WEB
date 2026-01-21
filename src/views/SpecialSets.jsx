@@ -1,17 +1,60 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import specialSets from "../data/specialSets";
 import ImagePreviewModal from "../components/PopularPick/ImagePreviewModal";
 
 export default function SpecialSets() {
+  const [specialSets, setSpecialSets] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [previewImage, setPreviewImage] = useState(null);
+
+  useEffect(() => {
+    const fetchSpecialSets = async () => {
+      try {
+        const res = await fetch(
+          "http://localhost:3000/api/products?limit=50"
+        );
+        const data = await res.json();
+
+        if (data.success) {
+          // กรองเฉพาะ category = SPECIALSET
+          const filtered = data.data.filter(
+            (item) => item.category?.toUpperCase() === "SPECIALSET"
+          );
+
+          setSpecialSets(filtered);
+        }
+      } catch (err) {
+        console.error("Failed to fetch special sets:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSpecialSets();
+  }, []);
+
+  if (loading) {
+    return (
+      <p className="text-center py-20 text-gray-500">
+        Loading special sets...
+      </p>
+    );
+  }
+
+  if (specialSets.length === 0) {
+    return (
+      <p className="text-center py-20 text-gray-500">
+        No special sets available right now 🎁
+      </p>
+    );
+  }
 
   return (
     <>
-      <section className="w-full py-16 ">
+      <section className="w-full py-16">
         <div className="max-w-7xl mx-auto px-6">
 
-          {/* Header */}
+          {/* ===== Header ===== */}
           <div className="mb-10 mx-auto text-center w-full max-w-md text-4xl bg-[#A6EAFF] py-6 rounded-full">
             <h2 className="text-3xl font-['Jua'] mb-2">
               Special Sets
@@ -31,9 +74,9 @@ export default function SpecialSets() {
               gap-8
             "
           >
-            {specialSets.map((special, index) => (
+            {specialSets.map((special) => (
               <div
-                key={index}
+                key={special._id}
                 className="
                   bg-white
                   rounded-2xl
@@ -46,7 +89,7 @@ export default function SpecialSets() {
               >
                 {/* Image */}
                 <button
-                  onClick={() => setPreviewImage(special.image)}
+                  onClick={() => setPreviewImage(special.imageUrl)}
                   className="
                     aspect-square
                     rounded-xl
@@ -56,20 +99,20 @@ export default function SpecialSets() {
                   "
                 >
                   <img
-                    src={special.image}
+                    src={special.imageUrl}
                     alt={special.name}
                     className="w-full h-full object-cover hover:scale-105 transition"
                   />
                 </button>
 
                 {/* Name */}
-                <h3 className="font-['Jua'] text-lg text-center mb-1">
+                <h3 className="font-['Jua'] text-lg text-center mb-1 line-clamp-2">
                   {special.name}
                 </h3>
 
                 {/* Price */}
                 <p className="text-sm text-center font-['Patrick_Hand'] mb-4">
-                  {special.price}
+                  ฿{special.price}
                 </p>
 
                 {/* CTA */}
