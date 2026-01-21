@@ -6,7 +6,7 @@ import './ProfileElement.css';
     return (
       <div>
         <div>
-          <h2 className='mt-10 text-center text-4xl font-[Jua] bg-[#d2f2ff] p-5 rounded-tl-2xl rounded-tr-2xl'>CHECK OUT OUR MORE ITEMS!</h2>
+          <h2 className='mt-10 text-center text-4xl font-[Jua] bg-[#d2f2ff] p-5 rounded-tl-2xl rounded-tr-2xl'>Discover More!</h2>
         </div>
         <div>
 
