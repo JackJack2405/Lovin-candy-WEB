@@ -1,3 +1,4 @@
+console.log("APP");
 import { createBrowserRouter, Router, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./views/Home.jsx";
