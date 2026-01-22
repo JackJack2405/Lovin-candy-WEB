@@ -77,7 +77,7 @@ const Register = () => {
               peer-placeholder-shown:translate-y-0
               peer-focus:scale-75
               peer-focus:-translate-y-6
-              peer-focus:text-[#FF7FBF]"
+              peer-focus:text-[#000000]"
             >
               Your Email
             </label>
@@ -102,7 +102,7 @@ const Register = () => {
               peer-placeholder-shown:translate-y-0
               peer-focus:scale-75
               peer-focus:-translate-y-6
-              peer-focus:text-[#FFD84D]"
+              peer-focus:text-[#000000]"
             >
               Your Password
             </label>
@@ -127,7 +127,7 @@ const Register = () => {
               peer-placeholder-shown:translate-y-0
               peer-focus:scale-75
               peer-focus:-translate-y-6
-              peer-focus:text-[#FFD84D]"
+              peer-focus:text-[#000000]"
             >
               Confirm Password
             </label>
