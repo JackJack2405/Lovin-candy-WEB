@@ -1,4 +1,4 @@
-import { createBrowserRouter, Router, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./views/Home.jsx";
 import MyProfile from "./views/MyProfile-pages/MyProfile";
@@ -25,61 +25,71 @@ import Checkout from "./components/Checkout/checkoutPage.jsx";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart.jsx";
 import OrderSummary from "./components/OrderSummary/OrderSummary.jsx";
 import CartItem from "./components/CartItem/CartItem.jsx";
+import RequireAdmin from "./auth/RequireAdmin.jsx";
+import { AuthProvider } from "./auth/AuthProvider.jsx";
+
+const NotFound = (
+  <div className="min-h-screen flex justify-center items-center bg-[#FAF3F3]">
+    <h1 className="text-4xl">404 Page Not Found</h1>
+  </div>
+);
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    errorElement: (
-      <div className="min-h-screen flex justify-center items-center bg-[#FAF3F3]">
-        <h1 className="text-4xl">404 Page Not Found</h1>
-      </div>
-    ),
+    errorElement: NotFound,
     children: [
-      { path: "/", element: <Home /> },
-      { path: "/products", element: <Products /> },
-      { path: "/customize", element: <Customize /> },
-      { path: "/profile", element: <MyProfile /> },
-      { path: "/profile/order", element: <MyOrder /> },
-      { path: "/profile/favitems", element: <MyFavItems /> },
-      { path: "/profile/address", element: <MyAddress /> },
-      { path: "/profile/payment", element: <MyPayment /> },
-      { path: "/login", element: <Login /> },
-      { path: "/register", element: <Register /> },
-      { path: "/profile/address/edit", element: <ProfileAddressEdit /> },
-      { path: "/profile/address", element: <ProfileAddressButton /> },
-      { path: "/specialsets", element: <SpecialSets /> },
-      { path: "/cart", element: <Cart /> },
-      { path: "/shoppingcart", element: <ShoppingCart /> },
-      { path: "/checkout", element: <Checkout /> },
-      { path: "/OrderSummary", element: <OrderSummary /> },
-      { path: "/CartItem", element: <CartItem /> },
+      { index: true, element: <Home /> },
+      { path: "products", element: <Products /> },
+      { path: "customize", element: <Customize /> },
+
+      { path: "profile", element: <MyProfile /> },
+      { path: "profile/order", element: <MyOrder /> },
+      { path: "profile/favitems", element: <MyFavItems /> },
+      { path: "profile/address", element: <MyAddress /> },
+      { path: "profile/address/edit", element: <ProfileAddressEdit /> },
+      { path: "profile/address/button", element: <ProfileAddressButton /> },
+      { path: "profile/payment", element: <MyPayment /> },
+
+      { path: "login", element: <Login /> },
+      { path: "register", element: <Register /> },
+
+      { path: "specialsets", element: <SpecialSets /> },
+      { path: "cart", element: <Cart /> },
+      { path: "shoppingcart", element: <ShoppingCart /> },
+      { path: "checkout", element: <Checkout /> },
+      { path: "ordersummary", element: <OrderSummary /> },
+      { path: "cartitem", element: <CartItem /> },
     ],
   },
 
   {
     path: "/admin",
-    element: <AdminLayout />,
-    errorElement: (
-      <div className="min-h-screen flex justify-center items-center bg-[#FAF3F3]">
-        <h1 className="text-4xl">404 Page Not Found</h1>
-      </div>
-    ),
+    element: <RequireAdmin />,
+    errorElement: NotFound,
     children: [
-      { index: true, element: <Admin /> },
-      { path: "dashboard", element: <AdminDashboard /> },
-      { path: "users", element: <AdminUsers /> },
-      { path: "products", element: <ProductManagement /> },
-      { path: "chat", element: <AdminChat /> },
+      {
+        element: <AdminLayout />,
+        children: [
+          { index: true, element: <Admin /> },
+          { path: "dashboard", element: <AdminDashboard /> },
+          { path: "users", element: <AdminUsers /> },
+          { path: "products", element: <ProductManagement /> },
+          { path: "chat", element: <AdminChat /> },
+        ],
+      },
     ],
   },
 ]);
 
 function App() {
   return (
-    <CartProvider>
-      <RouterProvider router={router} />
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
+    </AuthProvider>
   );
 }
 
