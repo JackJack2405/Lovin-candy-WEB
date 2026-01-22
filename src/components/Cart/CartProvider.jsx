@@ -49,8 +49,8 @@ export const CartProvider = ({ children }) => {
   const updateQuantity = (id, newQuantity) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item._id === id ? { ...item, quantity: newQuantity } : item
-      )
+        item._id === id ? { ...item, quantity: newQuantity } : item,
+      ),
     );
   };
 
@@ -84,7 +84,7 @@ export const CartProvider = ({ children }) => {
         cartItems,
         setCartItems,
         addToCart,
-        updateQuantity, 
+        updateQuantity,
         removeFromCart,
         isCartOpen,
         openCart,

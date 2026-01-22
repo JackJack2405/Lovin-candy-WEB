@@ -18,7 +18,7 @@ const Login = () => {
     setError("");
     setLoading(true);
 
-  try {
+    try {
       const response = await axios.post(`${apiBase}/users/login`, {
         email,
         password,
@@ -26,7 +26,7 @@ const Login = () => {
 
       if (response.data.success) {
         localStorage.setItem("token", response.data.token);
-        
+
         localStorage.setItem("user", JSON.stringify(response.data.user));
 
         alert("Login Successful!");
@@ -58,7 +58,7 @@ const Login = () => {
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
-                if(error) setError("");
+                if (error) setError("");
               }}
               className="peer block w-full py-2 px-0 text-sm text-[#2B3A55] bg-transparent border-0 border-b-2 border-[#FF9ECF]/70 appearance-none focus:outline-none focus:border-[#FF7FBF] transition-all"
               placeholder=""
@@ -70,7 +70,7 @@ const Login = () => {
               peer-placeholder-shown:translate-y-0
               peer-focus:scale-75
               peer-focus:-translate-y-6
-              peer-focus:text-[#FF7FBF]"
+              peer-focus:text-[#000000]"
             >
               Your Email
             </label>
@@ -93,14 +93,16 @@ const Login = () => {
               peer-placeholder-shown:translate-y-0
               peer-focus:scale-75
               peer-focus:-translate-y-6
-              peer-focus:text-[#FFD84D]"
+              peer-focus:text-[#000000]"
             >
               Your Password
             </label>
             <AiOutlineUnlock className="absolute top-3 right-2 text-[#FF9ECF] peer-focus:text-[#FFD84D] transition" />
           </div>
 
-        {error && <p className="text-red-500 text-xs text-center mb-4">{error}</p>}
+          {error && (
+            <p className="text-red-500 text-xs text-center mb-4">{error}</p>
+          )}
 
           <div className="flex justify-between items-center text-sm text-[#2B3A55] mb-6">
             <div className="flex items-center gap-2">

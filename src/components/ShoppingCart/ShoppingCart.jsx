@@ -3,9 +3,34 @@ import { Link } from "react-router-dom";
 import { useCart } from "../Cart/UserCart.jsx";
 import OrderSummary from "../OrderSummary/OrderSummary.jsx";
 import CartItem from "../CartItem/CartItem.jsx";
+import { useState, useEffect } from "react";
 
 const ShoppingCart = () => {
   const { cartItems, handleQuantityChange, handleRemoveItem } = useCart();
+  const [isLogin, setIsLogin] = useState(false);
+  const [userRole, setUserRole] = useState(null);
+  useEffect(() => {
+    const checkAuth = () => {
+      const token = localStorage.getItem("token");
+      const userData = localStorage.getItem("user");
+      setIsLogin(!!token);
+
+      if (token && userData) {
+        try {
+          const user = JSON.parse(userData);
+          setUserRole(user.role); // ✅ เก็บ role ลงใน State
+        } catch (e) {
+          console.error("Error parsing user data", e);
+        }
+      } else {
+        setUserRole(null);
+      }
+    };
+
+    checkAuth();
+    window.addEventListener("storage", checkAuth);
+    return () => window.removeEventListener("storage", checkAuth);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#f5e6e8] py-8 px-4">
@@ -50,16 +75,20 @@ const ShoppingCart = () => {
                 </div>
 
                 <div className="flex flex-col items-center gap-4">
-                  <Link to="/checkout">
-                    <button className="w-full max-w-md px-8 py-4 bg-[#ffc0e3] hover:bg-[#ffb0d8] text-[#00a6e8] font-bold text-lg rounded-full border-2 border-black transition">
-                      CHECKOUT
-                    </button>
-                  </Link>
-                  <Link to="/checkout">
-                    <button className="w-full max-w-md px-8 py-4 bg-[#ffc0e3] hover:bg-[#ffb0d8] text-[#00a6e8] font-bold text-lg rounded-full border-2 border-black transition">
-                      CHECKOUT AS GUEST
-                    </button>
-                  </Link>
+                  {isLogin && (
+                    <Link to="/checkout">
+                      <button className="w-full max-w-md px-8 py-4 bg-[#ffc0e3] hover:bg-[#ffb0d8] text-[#00a6e8] font-bold text-lg rounded-full border-2 border-black transition">
+                        CHECKOUT
+                      </button>
+                    </Link>
+                  )}
+                  {userRole !== "USER" && (
+                    <Link to="/register">
+                      <button className="w-full max-w-md px-8 py-4 bg-[#ffc0e3] hover:bg-[#ffb0d8] text-[#00a6e8] font-bold text-lg rounded-full border-2 border-black transition">
+                        GET ACCOUNT BEFORE CHECKOUT
+                      </button>
+                    </Link>
+                  )}
                 </div>
               </>
             )}
