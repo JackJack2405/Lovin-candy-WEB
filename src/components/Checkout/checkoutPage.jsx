@@ -325,12 +325,7 @@ const Checkout = () => {
                         ${estimatedTaxes.toFixed(2)}
                       </span>
                     </p>
-                    <p className="text-base text-[#475569] font-medium flex items-center justify-between">
-                      Platform fee
-                      <span className="text-[#1e3a8a] font-bold">
-                        ${platformFee.toFixed(2)}
-                      </span>
-                    </p>
+                   
                   </div>
 
                   {/* Total */}
