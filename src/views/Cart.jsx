@@ -1,6 +1,7 @@
 import { useCart } from "../components/Cart/UserCart.jsx";
 import { FiChevronLeft, FiChevronRight, FiMinus, FiPlus, FiTrash2 } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { PiShoppingCartSimpleFill } from "react-icons/pi";
 
 export default function Cart({ pkg, onClose, isOpen }) {
   const { cartItems, removeFromCart, updateQuantity, toggleCart } = useCart();
@@ -11,7 +12,7 @@ export default function Cart({ pkg, onClose, isOpen }) {
         onClick={toggleCart}
         className={`
           fixed top-1/2 -translate-y-1/2 z-1001
-          w-12 h-12 bg-[#277eff] border-4 border-[#d2e6ff] rounded-full 
+          w-12 h-12 bg-[#fd7391a2] border-2 border-[#ffa7dd] rounded-2xl
           flex items-center justify-center shadow-2xl cursor-pointer 
           hover:scale-110 transition-all duration-300
           
@@ -21,8 +22,8 @@ export default function Cart({ pkg, onClose, isOpen }) {
           }
         `}
       >
-        <span className="text-xl text-white flex items-center justify-center">
-          {isOpen ? <FiChevronRight /> : <FiChevronLeft />}
+        <span className="text-xl text-[#ffffff] flex items-center justify-center">
+          {isOpen ? <PiShoppingCartSimpleFill /> : <PiShoppingCartSimpleFill />}
         </span>
       </button>
 
