@@ -73,7 +73,7 @@ export default function ProductManagement() {
       type: p.type || p.category || "", 
       price: String(p.price ?? ""),
       stock: String(p.stock ?? ""),
-      image: (p.image || p.images?.[0] || "").toString(),
+      image: (p.imageUrl || p.images?.[0] || "").toString(),
     });
     setOpen(true);
   };
@@ -104,7 +104,7 @@ export default function ProductManagement() {
       type: form.type.trim(),
       price: Number(form.price),
       stock: Number(form.stock),
-      image: form.image.trim(),
+      imageUrl: form.image.trim(),
     };
 
   
@@ -118,7 +118,7 @@ export default function ProductManagement() {
       const res = await fetch(
         mode === "create" ? `${API}/products` : `${API}/products/${editingId}`,
         {
-          method: mode === "create" ? "POST" : "PATCH",
+          method: mode === "create" ? "POST" : "PUT",
           headers,
           body: JSON.stringify(payload),
         }
@@ -238,7 +238,7 @@ export default function ProductManagement() {
 
                     <div className="flex items-center gap-3">
                       <img
-                        src={p.image || p.images?.[0] || "/logo.png"}
+                        src={p.imageUrl || p.imageUrl?.[0] || "/logo.png"}
                         alt={p.name}
                         className="h-10 w-10 rounded-lg object-cover bg-white"
                       />

@@ -31,16 +31,16 @@ const ShoppingCart = () => {
               <>
                 <div className="bg-white rounded-2xl p-6 mb-8">
                   {cartItems?.map((cartItem, index) => (
-                    <div key={cartItem.id}>
+                    <div key={cartItem._id}>
                       <CartItem
                         cartItem={cartItem}
                         onIncrease={() =>
-                          handleQuantityChange(cartItem.id, "increase")
+                          handleQuantityChange(cartItem._id, "increase")
                         }
                         onDecrease={() =>
-                          handleQuantityChange(cartItem.id, "decrease")
+                          handleQuantityChange(cartItem._id, "decrease")
                         }
-                        onRemoveItem={() => handleRemoveItem(cartItem.id)}
+                        onRemoveItem={() => handleRemoveItem(cartItem._id)}
                       />
                       {index < cartItems.length - 1 && (
                         <hr className="border-black my-6" />

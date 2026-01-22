@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CartContext } from "../Cart/CartContext.jsx";
 
 export function UseCartHook() {
@@ -10,15 +10,33 @@ export function UseCartHook() {
 }
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const openCart = () => setIsCartOpen(true);
+  const closeCart = () => setIsCartOpen(false);
+  const toggleCart = () => setIsCartOpen(!isCartOpen);
+
+  const [cartItems, setCartItems] = useState(() => {
+    try {
+      const savedCart = localStorage.getItem("cart_storage");
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+      console.error("Error loading cart from localStorage", error);
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("cart_storage", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addToCart = (product) => {
     setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === product.id);
+      const existingItem = prevItems.find((item) => item._id === product._id);
 
       if (existingItem) {
         return prevItems.map((item) =>
-          item.id === product.id
+          item._id === product._id
             ? { ...item, quantity: item.quantity + 1 }
             : item,
         );
@@ -28,10 +46,22 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  const updateQuantity = (id, newQuantity) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item._id === id ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
+
+  const removeFromCart = (id) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item._id !== id));
+  };
+
   const handleQuantityChange = (id, action) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id
+        item._id === id
           ? {
               ...item,
               quantity:
@@ -45,7 +75,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const handleRemoveItem = (id) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    setCartItems((prevItems) => prevItems.filter((item) => item._id !== id));
   };
 
   return (
@@ -53,6 +83,12 @@ export const CartProvider = ({ children }) => {
       value={{
         cartItems,
         addToCart,
+        updateQuantity, 
+        removeFromCart,
+        isCartOpen,
+        openCart,
+        closeCart,
+        toggleCart,
         handleQuantityChange,
         handleRemoveItem,
       }}

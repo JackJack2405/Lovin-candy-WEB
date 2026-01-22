@@ -23,9 +23,15 @@ const Checkout = () => {
     (acc, item) => acc + item?.quantity * item?.price,
     0,
   );
+<<<<<<< HEAD
   const platformFee = 0.96;
   const estimatedTaxes = subtotal * 0.07;
   const total = (subtotal + platformFee + estimatedTaxes).toFixed(2);
+=======
+    
+  const estimatedTaxes = subtotal*0.07;
+  const total = (subtotal  + estimatedTaxes).toFixed(2);
+>>>>>>> 96d6d8d321ad6e39b037478c26245f2a0b340fad
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -325,12 +331,7 @@ const Checkout = () => {
                         ${estimatedTaxes.toFixed(2)}
                       </span>
                     </p>
-                    <p className="text-base text-[#475569] font-medium flex items-center justify-between">
-                      Platform fee
-                      <span className="text-[#1e3a8a] font-bold">
-                        ${platformFee.toFixed(2)}
-                      </span>
-                    </p>
+                   
                   </div>
 
                   {/* Total */}
@@ -355,7 +356,7 @@ const Checkout = () => {
                         >
                           <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center border border-[#bae6fd]">
                             <img
-                              src={item.image}
+                              src={item.imageUrl}
                               alt={item.name}
                               className="w-12 h-12 object-contain"
                             />
@@ -364,6 +365,10 @@ const Checkout = () => {
                             <h5 className="text-sm text-[#2B3A55] font-bold">
                               {item.name}
                             </h5>
+<<<<<<< HEAD
+=======
+                           
+>>>>>>> 96d6d8d321ad6e39b037478c26245f2a0b340fad
                           </div>
                           <div className="text-right">
                             <p className="text-sm text-[#1e3a8a] font-bold">
