@@ -22,9 +22,9 @@ const Checkout = () => {
     (acc, item) => acc + item?.quantity * item?.price,
     0,
   );
-  const platformFee = 0.96;
-  const estimatedTaxes = 0.07;
-  const total = (subtotal + platformFee + estimatedTaxes).toFixed(2);
+    
+  const estimatedTaxes = subtotal*0.07;
+  const total = (subtotal  + estimatedTaxes).toFixed(2);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -51,7 +51,7 @@ const Checkout = () => {
             {/* Header */}
             <div className="mb-8">
               <h1 className="text-3xl md:text-4xl text-[#2B3A55] font-archivo font-bold text-center mb-2">
-                Guest Checkout
+                Checkout
               </h1>
               <p className="text-center text-[#7A8CA5] text-sm">
                 Log in to check out faster and find your past purchases
@@ -325,12 +325,7 @@ const Checkout = () => {
                         ${estimatedTaxes.toFixed(2)}
                       </span>
                     </p>
-                    <p className="text-base text-[#475569] font-medium flex items-center justify-between">
-                      Platform fee
-                      <span className="text-[#1e3a8a] font-bold">
-                        ${platformFee.toFixed(2)}
-                      </span>
-                    </p>
+                   
                   </div>
 
                   {/* Total */}
@@ -364,9 +359,7 @@ const Checkout = () => {
                             <h5 className="text-sm text-[#2B3A55] font-bold">
                               {item.name}
                             </h5>
-                            <p className="text-xs text-[#7A8CA5]">
-                              {item.quantity} Desktop License
-                            </p>
+                           
                           </div>
                           <div className="text-right">
                             <p className="text-sm text-[#1e3a8a] font-bold">
