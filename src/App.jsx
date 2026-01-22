@@ -27,6 +27,7 @@ import OrderSummary from "./components/OrderSummary/OrderSummary.jsx";
 import CartItem from "./components/CartItem/CartItem.jsx";
 import RequireAdmin from "./auth/RequireAdmin.jsx";
 import { AuthProvider } from "./auth/AuthProvider.jsx";
+import AdminOrders from "./components/Admin/AdminOrders.jsx";
 
 const NotFound = (
   <div className="min-h-screen flex justify-center items-center bg-[#FAF3F3]">
@@ -77,6 +78,7 @@ const router = createBrowserRouter([
           { path: "users", element: <AdminUsers /> },
           { path: "products", element: <ProductManagement /> },
           { path: "chat", element: <AdminChat /> },
+          { path: "orders", element: <AdminOrders /> },
         ],
       },
     ],

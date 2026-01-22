@@ -22,7 +22,6 @@ const Checkout = () => {
     (acc, item) => acc + item?.quantity * item?.price,
     0,
   );
-    
   const estimatedTaxes = subtotal*0.07;
   const total = (subtotal  + estimatedTaxes).toFixed(2);
 
