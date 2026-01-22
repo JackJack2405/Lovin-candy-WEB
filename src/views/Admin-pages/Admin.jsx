@@ -1,16 +1,15 @@
 import { Link } from "react-router-dom";
 
 export default function Admin() {
-   const cards = [
+  const cards = [
     { title: "Product\nmanagement", to: "/admin/products" },
-    { title: "Order", to: "/admin/orders" }, 
+    { title: "Order", to: "/admin/orders" },
     { title: "Chat", to: "/admin/chat" },
     { title: "graph chart", to: "/admin/analytics" },
   ];
 
   return (
     <section className="w-full min-h-[calc(100vh-64px)] bg-[#FAF3F3] px-6 py-10">
-     
       <div className="flex justify-center mb-10">
         <h1 className="w-full max-w-md text-2xl md:text-4xl font-bold text-center bg-[#FFEB76] py-4 md:py-6 rounded-full">
           Admin
@@ -32,8 +31,6 @@ export default function Admin() {
           ))}
         </div>
       </div>
-
-      
     </section>
   );
 }
