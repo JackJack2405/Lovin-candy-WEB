@@ -28,11 +28,11 @@ return (
               <TbNotes/> <span className="hidden md:inline ml-2">My Order</span>
             </NavLink>
           </li>
-          <li>
+          {/*<li>
             <NavLink className={navLinkClass("/profile/favitems")} to="/profile/favitems" end>
               <FaRegHeart /> <span className="hidden md:inline ml-2">Favourite</span>
             </NavLink>
-          </li>
+          </li>*/}
         </ul>
 
         <p className="heada hidden md:block">Account</p>

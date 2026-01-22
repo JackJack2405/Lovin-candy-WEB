@@ -9,8 +9,9 @@ export default function ProfileAddress ({ data }) {
       <div className="w-full mb-6">
         <div className="flex flex-col text-xl">
           Name - Surname
-          <p className="mt-1 text-[#FF74B1]">
-            {address?.fullName || `${data?.first_name} ${data?.last_name}` || "-"}
+          <p className="text-pink-400">
+            {/* ✅ กัน undefined ด้วยการใส่ || "" หรือข้อความว่าง */}
+            {data?.address?.fullName ? data.address.fullName : "No Name Provided"}
           </p>
         </div>
         <div className="flex flex-col mt-3 text-xl">

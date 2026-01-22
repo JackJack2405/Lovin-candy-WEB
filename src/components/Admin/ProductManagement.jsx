@@ -1,31 +1,66 @@
 import { useEffect, useMemo, useState } from "react";
+import { useAuth } from "../../auth/AuthProvider";
 
-const API = import.meta.env.VITE_API_URL; 
+const API = import.meta.env.VITE_API_URL;
 
 export default function ProductManagement() {
+  const { user } = useAuth();
+  const isAdmin = user?.role === "ADMIN" || user?.role === "SUPER ADMIN";
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // server-side
   const [q, setQ] = useState("");
   const [page, setPage] = useState(1);
   const pageSize = 6;
   const [meta, setMeta] = useState({ total: 0, totalPages: 1 });
 
-  // modal
   const [open, setOpen] = useState(false);
-  const [mode, setMode] = useState("create"); 
+  const [mode, setMode] = useState("create");
   const [editingId, setEditingId] = useState(null);
 
+  const [categories, setCategories] = useState([]);
+  const [newCat, setNewCat] = useState("");
+
   const [form, setForm] = useState({
-  
     name: "",
-    type: "",
+    category: "",
     price: "",
     stock: "",
     image: "",
   });
 
+  const fetchCategories = async () => {
+    if (!API) return;
+    const res = await fetch(`${API}/categories`);
+    const json = await res.json();
+    if (!res.ok) throw new Error(json?.message || "Failed to load categories");
+    setCategories(json.data || json.categories || []);
+  };
+
+  const addCategory = async () => {
+    const name = newCat.trim();
+    if (!name) return;
+
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token");
+
+    const res = await fetch(`${API}/categories`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ name }),
+    });
+
+    const json = await res.json();
+    if (!res.ok) throw new Error(json?.message || "Create category failed");
+
+    setNewCat("");
+    await fetchCategories();
+    setForm((p) => ({ ...p, category: name }));
+  };
 
   const fetchProducts = async ({ pageParam = page, qParam = q } = {}) => {
     setLoading(true);
@@ -53,24 +88,27 @@ export default function ProductManagement() {
 
   useEffect(() => {
     fetchProducts();
-
   }, [page]);
+
+  useEffect(() => {
+    fetchCategories().catch((e) => alert(e.message));
+  }, []);
 
   const closeModal = () => setOpen(false);
 
   const openCreate = () => {
     setMode("create");
     setEditingId(null);
-    setForm({ name: "", type: "", price: "", stock: "", image: "" });
+    setForm({ name: "", category: "", price: "", stock: "", image: "" });
     setOpen(true);
   };
 
   const openEdit = (p) => {
     setMode("edit");
-    setEditingId(p._id); 
+    setEditingId(p._id);
     setForm({
       name: p.name || "",
-      type: p.type || p.category || "", 
+      category: p.category || "",
       price: String(p.price ?? ""),
       stock: String(p.stock ?? ""),
       image: (p.imageUrl || p.images?.[0] || "").toString(),
@@ -85,14 +123,13 @@ export default function ProductManagement() {
 
   const validate = () => {
     if (!form.name.trim()) return "Please enter Product name";
-    if (!form.type.trim()) return "Please enter Type";
+    if (!form.category.trim()) return "Please enter Category";
     const price = Number(form.price);
     const stock = Number(form.stock);
     if (Number.isNaN(price) || price < 0) return "Price must be a number >= 0";
     if (Number.isNaN(stock) || stock < 0) return "Stock must be a number >= 0";
     return null;
   };
-
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -101,13 +138,12 @@ export default function ProductManagement() {
 
     const payload = {
       name: form.name.trim(),
-      type: form.type.trim(),
+      category: form.category.trim(),
       price: Number(form.price),
       stock: Number(form.stock),
       imageUrl: form.image.trim(),
     };
 
-  
     const token = localStorage.getItem("token");
     const headers = {
       "Content-Type": "application/json",
@@ -130,7 +166,6 @@ export default function ProductManagement() {
       }
 
       setOpen(false);
-      // refresh list
       await fetchProducts({ pageParam: 1, qParam: q });
       setPage(1);
     } catch (error) {
@@ -138,7 +173,6 @@ export default function ProductManagement() {
     }
   };
 
- 
   const onDelete = async (_id) => {
     const ok = confirm("Delete this product?");
     if (!ok) return;
@@ -159,17 +193,13 @@ export default function ProductManagement() {
         throw new Error(json?.message || "Delete failed");
       }
 
-      // refresh
       await fetchProducts({ pageParam: page, qParam: q });
     } catch (error) {
       alert(error.message);
     }
   };
 
-
   const totalPages = Math.max(1, Number(meta.totalPages || 1));
-
-  
   const paged = useMemo(() => products, [products]);
 
   return (
@@ -177,16 +207,14 @@ export default function ProductManagement() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <div>
           <h2 className="font-['Jua'] text-2xl md:text-3xl">Products</h2>
-          <p className="text-sm text-gray-600">
-            
-          </p>
+          <p className="text-sm text-gray-600"></p>
         </div>
 
         <div className="flex items-center gap-3">
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Search by name / type"
+            placeholder="Search by name / category"
             className="w-60 md:w-80 rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-pink-200"
           />
 
@@ -214,7 +242,7 @@ export default function ProductManagement() {
           <div className="grid grid-cols-[160px_1.6fr_160px_140px_140px_180px] gap-2 px-4 pb-2 text-sm text-gray-700">
             <div className="text-center">ID</div>
             <div className="text-center">PRODUCT NAME</div>
-            <div className="text-center">TYPE</div>
+            <div className="text-center">CATEGORY</div>
             <div className="text-center">PRICE</div>
             <div className="text-center">STOCK</div>
             <div className="text-center">ACTION</div>
@@ -248,7 +276,7 @@ export default function ProductManagement() {
                       </div>
                     </div>
 
-                    <div className="text-center">{p.type || p.category}</div>
+                    <div className="text-center">{p.category || "-"}</div>
                     <div className="text-center">{p.price}</div>
                     <div className="text-center">{p.stock}</div>
 
@@ -313,14 +341,39 @@ export default function ProductManagement() {
             <form onSubmit={onSubmit} className="space-y-3">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-sm text-gray-700">Type</label>
-                  <input
-                    name="type"
-                    value={form.type}
+                  <label className="text-sm text-gray-700">Category</label>
+
+                  <select
+                    name="category"
+                    value={form.category}
                     onChange={onChange}
                     className="w-full rounded-xl border px-3 py-2 text-sm"
-                    placeholder="Gummy / Chocolate / Set"
-                  />
+                  >
+                    <option value="">Select category</option>
+                    {categories.map((c) => (
+                      <option key={c._id || c.name} value={c.name}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+
+                  {isAdmin && (
+                    <div className="flex gap-2 mt-2">
+                      <input
+                        value={newCat}
+                        onChange={(e) => setNewCat(e.target.value)}
+                        className="flex-1 rounded-xl border px-3 py-2 text-sm"
+                        placeholder="New category"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => addCategory().catch((e) => alert(e.message))}
+                        className="px-4 py-2 rounded-xl bg-[#FF74B1] text-white hover:bg-pink-400 transition"
+                      >
+                        Add
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 <div>

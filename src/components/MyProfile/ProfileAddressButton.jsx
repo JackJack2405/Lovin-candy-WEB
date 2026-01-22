@@ -42,11 +42,12 @@ export default function ProfileAddressButton ({ data, onSuccess }) {
       <div className="w-full">
         <label className="flex flex-col">
           Name - Surname
-          <input 
+          <input
+          name="fullName"
           type="text"
           className="border-[#C4C4C4] border rounded-lg max-w-210 min-w-120 mr-5 mt-2 pl-2 pt-1 pb-1"
           maxLength={100}
-          value={formData.fullName}
+          value={formData.fullName || ""}
           onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
           >
           </input>
