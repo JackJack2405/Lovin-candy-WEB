@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import ImagePreviewModal from "../components/PopularPick/ImagePreviewModal";
+import axios from "axios";
+import { useCart } from "../components/Cart/UserCart.jsx";
+import ProductDetailModal from "../components/ProductDetailModal.jsx";
 
 export default function SpecialSets() {
+  const apiBase = import.meta.env.VITE_API_URL;
   const [specialSets, setSpecialSets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [previewImage, setPreviewImage] = useState(null);
+  const { addToCart, openCart } = useCart();  
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     const fetchSpecialSets = async () => {
       try {
-        const res = await fetch(
-          "http://localhost:3000/api/products?limit=50"
-        );
-        const data = await res.json();
+        const res = await axios.get(`${apiBase}/products?limit=100`);
 
-        if (data.success) {
+        if (res.data.success) {
           // กรองเฉพาะ category = SPECIALSET
-          const filtered = data.data.filter(
+          const filtered = res.data.data.filter(
             (item) => item.category?.toUpperCase() === "SPECIALSET"
           );
 
@@ -31,7 +33,7 @@ export default function SpecialSets() {
     };
 
     fetchSpecialSets();
-  }, []);
+  }, [apiBase]);
 
   if (loading) {
     return (
@@ -89,13 +91,14 @@ export default function SpecialSets() {
               >
                 {/* Image */}
                 <button
-                  onClick={() => setPreviewImage(special.imageUrl)}
+                  onClick={() => setSelectedProduct(special)}
                   className="
                     aspect-square
                     rounded-xl
                     mb-5
                     overflow-hidden
                     bg-[#EAF9FF]
+                    cursor-pointer
                   "
                 >
                   <img
@@ -116,19 +119,23 @@ export default function SpecialSets() {
                 </p>
 
                 {/* CTA */}
-                <Link to="/cart" className="mt-auto">
-                  <button
+                <button
+                    onClick={() => {
+                      addToCart(special);
+                      openCart();
+                    }}
                     className="
-                      w-full py-2 rounded-full
-                      bg-[#A6EAFF]
-                      font-['Jua'] text-sm
-                      hover:bg-[#8fdff7]
-                      transition
+                      mt-auto w-full py-3 rounded-2xl
+                      bg-[#A6EAFF] text-gray-800
+                      font-['Jua'] text-base
+                      hover:bg-[#8fdff7] active:scale-95
+                      transition-all duration-200 shadow-sm
+                      flex items-center justify-center gap-2
+                      cursor-pointer
                     "
                   >
                     I want this 🛒
                   </button>
-                </Link>
               </div>
             ))}
           </div>
@@ -136,10 +143,10 @@ export default function SpecialSets() {
       </section>
 
       {/* ===== Image Preview Modal ===== */}
-      {previewImage && (
-        <ImagePreviewModal
-          image={previewImage}
-          onClose={() => setPreviewImage(null)}
+      {selectedProduct && (
+        <ProductDetailModal
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
         />
       )}
     </>

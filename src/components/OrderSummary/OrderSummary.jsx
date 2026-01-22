@@ -8,7 +8,7 @@ const OrderSummary = ({ cartItems }) => {
     0,
   );
 
-  const vatRate = 0.07;
+  const vatRate = 0.40;
   const vat = subtotal * vatRate;
   const total = subtotal + vat;
 
@@ -25,7 +25,7 @@ const OrderSummary = ({ cartItems }) => {
       <div className="space-y-3 mb-6">
         {cartItems?.map((item) => (
           <div
-            key={item.id}
+            key={item._id}
             className="flex items-center justify-between text-sm"
           >
             <span className="text-gray-700">{item.name}</span>

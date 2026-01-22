@@ -18,7 +18,7 @@ export default function ProductDetailModal({ product, onClose }) {
         {/* Close Button */}
         <button 
           onClick={onClose}
-          className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full hover:bg-pink-100 transition-colors z-10"
+          className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full hover:bg-pink-100 transition-colors z-10 cursor-pointer"
         >
           ✕
         </button>

@@ -355,7 +355,7 @@ const Checkout = () => {
                         >
                           <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center border border-[#bae6fd]">
                             <img
-                              src={item.image}
+                              src={item.imageUrl}
                               alt={item.name}
                               className="w-12 h-12 object-contain"
                             />

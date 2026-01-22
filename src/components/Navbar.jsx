@@ -6,21 +6,41 @@ import { useCart } from "../components/Cart/UserCart.jsx";
 export default function Navbar({ onCartOpen }) {
   const [open, setOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+  const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
 
   const { cartItems } = useCart();
 
-  const totalItems = cartItems.reduce((total, item) => total + (Number(item.quantity) || 0), 0);
+  const totalItems = (cartItems || []).reduce((total, item) => total + (Number(item.quantity) || 0), 0);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsLogin(!!token);
+    const checkAuth = () => {
+      const token = localStorage.getItem("token");
+      const userData = localStorage.getItem("user");
+      setIsLogin(!!token);
+
+      if (token && userData) {
+        try {
+          const user = JSON.parse(userData);
+          setUserRole(user.role); // ✅ เก็บ role ลงใน State
+        } catch (e) {
+          console.error("Error parsing user data", e);
+        }
+      } else {
+        setUserRole(null);
+      }
+    };
+
+  checkAuth();
+    window.addEventListener("storage", checkAuth);
+    return () => window.removeEventListener("storage", checkAuth);
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setIsLogin(false);
+    setUserRole(null);
     setOpen(false); // ปิดเมนูมือถือถ้าเปิดอยู่
     alert("Logged out successfully!");
     navigate("/login");
@@ -50,8 +70,15 @@ export default function Navbar({ onCartOpen }) {
           <li><Link to="/" className="hover:opacity-70">Home</Link></li>
           <li><Link to="/customize" className="hover:opacity-70">Customize</Link></li>
           <li><Link to="/products" className="hover:opacity-70">Product</Link></li>
-          <li><Link to="/profile">My Profile</Link></li>
-          <li><Link to="/admin">Admin</Link></li>
+
+          {isLogin && (
+            <li><Link to="/profile" className="hover:opacity-70">My Profile</Link></li>
+          )}
+
+          {userRole === 'ADMIN' && (
+            <li><Link to="/admin" className="hover:opacity-70">Admin</Link></li>
+          )}
+
         </ul>
 
         {/* RIGHT */}
@@ -103,8 +130,13 @@ export default function Navbar({ onCartOpen }) {
             <li><Link to="/" onClick={() => setOpen(false)}>Home</Link></li>
             <li><Link to="/customize" onClick={() => setOpen(false)}>Customize</Link></li>
             <li><Link to="/products" onClick={() => setOpen(false)}>Product</Link></li>
-            <li><Link to="/profile" onClick={() => setOpen(false)}>My Profile</Link></li>
-            <li><Link to="/admin" onClick={() => setOpen(false)}>Admin</Link></li>
+            {isLogin && (
+              <li><Link to="/profile" onClick={() => setOpen(false)}>My Profile</Link></li>
+            )}
+
+            {userRole === 'ADMIN' && (
+              <li><Link to="/admin" onClick={() => setOpen(false)}>Admin</Link></li>
+            )}
             <li>
               {isLogin ? (
                 <button

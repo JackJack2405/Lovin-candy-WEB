@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ImagePreviewModal from "./PopularPick/ImagePreviewModal";
 import { useCart } from "../components/Cart/UserCart.jsx";
 import axios from "axios";
+import ProductDetailModal from "../components/ProductDetailModal.jsx";
 
 export default function SpecialSets() {
   const API_BASE = import.meta.env.VITE_API_URL;
@@ -11,6 +12,7 @@ export default function SpecialSets() {
   const [loading, setLoading] = useState(true);
   const [previewImage, setPreviewImage] = useState(null);
   const { addToCart, openCart } = useCart();
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const scroll = (direction) => {
     if (!scrollRef.current) return;
@@ -119,6 +121,7 @@ export default function SpecialSets() {
                 pb-4
                 px-12
                 no-scrollbar
+                cursor-pointer
               "
             >
               {specialSets.map((item) => (
@@ -133,12 +136,13 @@ export default function SpecialSets() {
                     hover:shadow-md
                     shrink-0
                     flex flex-col
+                    cursor-pointer
                   "
                 >
                   {/* Image */}
                   <button
-                    onClick={() => setPreviewImage(item.imageUrl)}
-                    className="aspect-square rounded-xl mb-4 overflow-hidden bg-[#EAF9FF]"
+                    onClick={() => setSelectedProduct(item)}
+                    className="aspect-square rounded-xl mb-4 overflow-hidden bg-[#EAF9FF] cursor-pointer"
                   >
                     <img
                       src={item.imageUrl}
@@ -198,10 +202,10 @@ export default function SpecialSets() {
       </section>
 
       {/* ===== Image Preview Modal ===== */}
-      {previewImage && (
-        <ImagePreviewModal
-          image={previewImage}
-          onClose={() => setPreviewImage(null)}
+      {selectedProduct && (
+        <ProductDetailModal
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
         />
       )}
     </>
