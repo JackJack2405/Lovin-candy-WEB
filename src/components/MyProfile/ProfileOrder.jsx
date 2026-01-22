@@ -137,15 +137,29 @@ export default function ProfileOrder () {
           ))}
         </div>
 
-        <h4 className="text-sm font-bold border-t border-gray-300 text-gray-500 uppercase tracking-wide pt-5">Shipping Details</h4>
-        <div className="text-sm text-gray-700 space-y-1 p-3 rounded-lg">
-          <p><span className="font-semibold">Name:</span> {order.receiverName || "Not provided"}</p>
-          <p><span className="font-semibold">Phone:</span> {order.phone || "Not provided"}</p>
-          <p className="flex gap-1">
-            <span className="font-semibold whitespace-nowrap">Address:</span> 
-            <span>{order.shippingAddress || "Not provided"}</span>
-          </p>
-        </div>
+        <h4 className="text-sm font-bold border-t border-gray-300 text-gray-500 uppercase tracking-wide pt-5">
+  Shipping Details
+</h4>
+<div className="text-sm text-gray-700 space-y-1 p-3 rounded-lg">
+  <p>
+    <span className="font-semibold">Name:</span>{" "}
+    {order.shippingAddress?.fullName || "Not provided"}
+  </p>
+  <p>
+    <span className="font-semibold">Phone:</span>{" "}
+    {order.shippingAddress?.phone || "Not provided"}
+  </p>
+  <p className="flex gap-1">
+    <span className="font-semibold whitespace-nowrap">Address:</span>
+    <span>
+      {order.shippingAddress ? (
+        `${order.shippingAddress.streetAddress}, ${order.shippingAddress.subDistrict}, ${order.shippingAddress.district}, ${order.shippingAddress.province}, ${order.shippingAddress.postalCode}`
+      ) : (
+        "Not provided"
+      )}
+    </span>
+  </p>
+</div>
         
         <div className="pt-3 border-t border-gray-300 flex justify-between items-center">
           <span className="text-sm font-bold text-gray-500">Total Amount:</span>
