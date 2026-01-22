@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import ImagePreviewModal from "../components/PopularPick/ImagePreviewModal";
 import axios from "axios";
 import { useCart } from "../components/Cart/UserCart.jsx";
 import ProductDetailModal from "../components/ProductDetailModal.jsx";
@@ -8,8 +7,7 @@ export default function SpecialSets() {
   const apiBase = import.meta.env.VITE_API_URL;
   const [specialSets, setSpecialSets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [previewImage, setPreviewImage] = useState(null);
-  const { addToCart, openCart } = useCart();  
+  const { addToCart, openCart } = useCart();
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
