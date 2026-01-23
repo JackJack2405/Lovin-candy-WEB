@@ -30,21 +30,38 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("cart_storage", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (product) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item._id === product._id);
+const apiBase = import.meta.env.VITE_API_URL;
 
-      if (existingItem) {
-        return prevItems.map((item) =>
-          item._id === product._id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item,
-        );
-      }
+const addToCart = (product) => {
+  setCartItems((prevItems) => {
+    const existingItem = prevItems.find(
+      (item) => item._id === product._id
+    );
 
-      return [...prevItems, { ...product, quantity: 1 }];
-    });
-  };
+    // 🟡 ยิง ADD_TO_CART เฉพาะครั้งแรก
+    if (!existingItem) {
+      fetch(`${apiBase}/cart/items`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productId: product._id,
+        }),
+      }).catch(() => {});
+    }
+
+    if (existingItem) {
+      return prevItems.map((item) =>
+        item._id === product._id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+    }
+
+    return [...prevItems, { ...product, quantity: 1 }];
+  });
+};
 
   const updateQuantity = (id, newQuantity) => {
     setCartItems((prevItems) =>

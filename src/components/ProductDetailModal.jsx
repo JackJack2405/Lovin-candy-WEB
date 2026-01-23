@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useCart } from "../components/Cart/UserCart.jsx";
 
 export default function ProductDetailModal({ product, onClose }) {
   const { addToCart } = useCart();
+  const apiBase = import.meta.env.VITE_API_URL;
+
+  useEffect(() => {
+    if (!product?._id) return;
+
+    fetch(`${apiBase}/products/${product._id}/view`, {
+      method: "POST",
+    }).catch(() => {});
+  }, [product, apiBase]);
 
   if (!product) return null;
 
